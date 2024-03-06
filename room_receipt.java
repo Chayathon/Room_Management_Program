@@ -10,10 +10,6 @@ public class room_receipt {
     private String tel;
     private String address;
     private Date date;
-
-    public room_receipt() {
-        
-    }
     
     public room_receipt(int roomNumber, String firstName, String lastName, String tel, String address) {
         this.roomNumber = roomNumber;
@@ -24,7 +20,9 @@ public class room_receipt {
         this.date = new Date();
 
         try {
-            FileWriter writer = new FileWriter("Room_Receipt.txt");
+            SimpleDateFormat dateFormatTitle = new SimpleDateFormat("dd-MM-yyyy");
+            String fileName = "Room_Receipt_" + dateFormatTitle.format(date) + "_" + roomNumber + ".txt";
+            FileWriter writer = new FileWriter(fileName);
             writer.write("หมายเลขห้อง : " + roomNumber + "\n");
             writer.write("ชื่อ-นามสกุล : " + firstName + " " + lastName + "\n");
             writer.write("เบอร์โทรศัพท์ : " + tel + "\n");
@@ -32,14 +30,14 @@ public class room_receipt {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             writer.write("วันที่เช่า : " + dateFormat.format(date));
             writer.close();
-            System.out.println("Room_Receipt.txt was saved");
+            System.out.println(fileName +" was saved");
         }
         catch (IOException e) {
-            System.out.println("Error while writing file Room_Receipt.txt" + e.getMessage());
+            System.out.println("Error while writing file " + e.getMessage());
         }
     }
 
-    public static void main(String[] args) {
-        room_receipt receipt = new room_receipt(1001, "ชยธร", "เติมพิพัฒน์พงศ์", "0957079861", "253/11 ม.รุ่งเรือง ถ.เทศบาล 4 ต.ปากเพรียว อ.เมือง จ.สระบุรี");
-    }
+    // public static void main(String[] args) {
+    //     room_receipt receipt = new room_receipt(1001, "ชยธร", "เติมพิพัฒน์พงศ์", "0957079861", "253/11 ม.รุ่งเรือง ถ.เทศบาล 4 ต.ปากเพรียว อ.เมือง จ.สระบุรี");
+    // }
 }

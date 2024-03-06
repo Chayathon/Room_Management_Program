@@ -1,11 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class rent_room {
+public class rent_room implements ActionListener {
     JFrame frame = new JFrame("Rent Rooms");
-    JRadioButton fanButton, airButton;
     Container container;
+    JLabel FnameLabel, LnameLabel, telLabel, addressLabel;
+    JTextField FnameField, LnameField, telField;
+    JTextArea addressField;
+    JRadioButton fanButton, airButton;
+    JButton confirmBtn;
+    room_receipt roomReceipt;
 
     public rent_room() {
         container = frame.getContentPane();
@@ -16,24 +25,24 @@ public class rent_room {
         // title.setFont(new Font("Tahoma", Font.BOLD, 36));
         // container.add(title, BorderLayout.NORTH);
 
-        JLabel FnameLabel = new JLabel("ชื่อ : ");
+        FnameLabel = new JLabel("ชื่อ : ");
         container.add(FnameLabel);
-        JTextField FnameField = new JTextField(20);
+        FnameField = new JTextField(20);
         container.add(FnameField);
         
-        JLabel LnameLabel = new JLabel("นามสกุล : ");
+        LnameLabel = new JLabel("นามสกุล : ");
         container.add(LnameLabel);
-        JTextField LnameField = new JTextField(20);
+        LnameField = new JTextField(20);
         container.add(LnameField);
         
-        JLabel telLabel = new JLabel("เบอร์โทร : ");
+        telLabel = new JLabel("เบอร์โทร : ");
         container.add(telLabel);
-        JTextField telField = new JTextField(20);
+        telField = new JTextField(20);
         container.add(telField);
         
-        JLabel addressLabel = new JLabel("ที่อยู่ : ");
+        addressLabel = new JLabel("ที่อยู่ : ");
         container.add(addressLabel);
-        JTextArea addressField = new JTextArea(3, 20);
+        addressField = new JTextArea(3, 20);
         container.add(addressField);
 
         ButtonGroup buttonGroup = new ButtonGroup();
@@ -45,12 +54,37 @@ public class rent_room {
         JCheckBox checkBox = new JCheckBox("ยอมรับสัญญาการเช่าห้องพัก");
         container.add(checkBox);
 
-        JButton confirmButton = new JButton("    ยืนยัน    ");
-        container.add(confirmButton);
+        confirmBtn = new JButton("    ยืนยัน    ");
+        confirmBtn.addActionListener(this);
+        container.add(confirmBtn);
 
         frame.setSize(600, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        Date date = new Date();
+        int roomNumber = 1001;
+        if(event.getSource() == confirmBtn) {
+            try {
+            SimpleDateFormat dateFormatTitle = new SimpleDateFormat("dd-MM-yyyy");
+            String fileName = "Room_Receipt_" + dateFormatTitle.format(date) + "_" + roomNumber + ".txt";
+            FileWriter writer = new FileWriter(fileName);
+            writer.write("หมายเลขห้อง : " + roomNumber + "\n");
+            writer.write("ชื่อ-นามสกุล : " + FnameField.getText() + " " + LnameField.getText() + "\n");
+            writer.write("เบอร์โทรศัพท์ : " + telField.getText() + "\n");
+            writer.write("ที่อยู่ : " + addressField.getText() + "\n");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            writer.write("วันที่เช่า : " + dateFormat.format(date));
+            writer.close();
+            System.out.println(fileName +" was saved");
+        }
+        catch (IOException e) {
+            System.out.println("Error while writing file " + e.getMessage());
+        }
+        }
     }
 
     public static void main(String[] args) {
