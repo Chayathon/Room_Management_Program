@@ -27,22 +27,22 @@ public class rent_room implements ActionListener {
 
         FnameLabel = new JLabel("ชื่อ : ");
         container.add(FnameLabel);
-        FnameField = new JTextField(20);
+        FnameField = new JTextField(14);
         container.add(FnameField);
         
         LnameLabel = new JLabel("นามสกุล : ");
         container.add(LnameLabel);
-        LnameField = new JTextField(20);
+        LnameField = new JTextField(14);
         container.add(LnameField);
         
         telLabel = new JLabel("เบอร์โทร : ");
         container.add(telLabel);
-        telField = new JTextField(20);
+        telField = new JTextField(14);
         container.add(telField);
         
         addressLabel = new JLabel("ที่อยู่ : ");
         container.add(addressLabel);
-        addressField = new JTextArea(3, 20);
+        addressField = new JTextArea(3, 14);
         container.add(addressField);
 
         ButtonGroup buttonGroup = new ButtonGroup();
@@ -58,8 +58,7 @@ public class rent_room implements ActionListener {
         confirmBtn.addActionListener(this);
         container.add(confirmBtn);
 
-        frame.setSize(600, 400);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 250);
         frame.setVisible(true);
     }
 
@@ -69,25 +68,26 @@ public class rent_room implements ActionListener {
         int roomNumber = 1001;
         if(event.getSource() == confirmBtn) {
             try {
-            SimpleDateFormat dateFormatTitle = new SimpleDateFormat("dd-MM-yyyy");
-            String fileName = "Room_Receipt_" + dateFormatTitle.format(date) + "_" + roomNumber + ".txt";
-            FileWriter writer = new FileWriter(fileName);
-            writer.write("หมายเลขห้อง : " + roomNumber + "\n");
-            writer.write("ชื่อ-นามสกุล : " + FnameField.getText() + " " + LnameField.getText() + "\n");
-            writer.write("เบอร์โทรศัพท์ : " + telField.getText() + "\n");
-            writer.write("ที่อยู่ : " + addressField.getText() + "\n");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            writer.write("วันที่เช่า : " + dateFormat.format(date));
-            writer.close();
-            System.out.println(fileName +" was saved");
-        }
-        catch (IOException e) {
-            System.out.println("Error while writing file " + e.getMessage());
-        }
+                SimpleDateFormat dateFormatTitle = new SimpleDateFormat("dd-MM-yyyy");
+                String fileName = "Room_Receipt_" + dateFormatTitle.format(date) + "_" + roomNumber + ".txt";
+                FileWriter writer = new FileWriter(fileName);
+                writer.write("หมายเลขห้อง : " + roomNumber + "\n");
+                writer.write("ชื่อ-นามสกุล : " + FnameField.getText() + " " + LnameField.getText() + "\n");
+                writer.write("เบอร์โทรศัพท์ : " + telField.getText() + "\n");
+                writer.write("ที่อยู่ : " + addressField.getText() + "\n");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                writer.write("วันที่เช่า : " + dateFormat.format(date));
+                writer.close();
+                System.out.println(fileName +" was saved");
+            }
+            catch (IOException e) {
+                System.out.println("Error while writing file " + e.getMessage());
+            }
+            frame.dispose();
         }
     }
 
-    public static void main(String[] args) {
-        rent_room rent = new rent_room();
-    }
+    // public static void main(String[] args) {
+    //     rent_room rent = new rent_room();
+    // }
 }
