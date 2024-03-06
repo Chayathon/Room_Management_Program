@@ -3,31 +3,55 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Room_Management extends JFrame implements ActionListener {
-    JPanel panel;
+    JPanel headerPanel, menuPanel;
     Container container;
-    JButton rentRoomBtn;
+    JButton rentRoomBtn, testBtn;
     rent_room rentRoom;
+    CardLayout cardLayout;
     // room_receipt roomReceipt;
 
     public Room_Management() {
         super("Room Management Program");
         container = getContentPane();
-        container.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        
+        cardLayout = new CardLayout(10, 10);
+        container.setLayout(new FlowLayout());
+        container.setLayout(cardLayout);
+
+        headerPanel = new JPanel();
+        headerPanel.setLayout(new BorderLayout());
+        container.add(headerPanel);
 
         JLabel title = new JLabel("Room Management Program");
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setFont(new Font("Tahoma", Font.BOLD, 28));
-        container.add(title, BorderLayout.NORTH);
+        headerPanel.add(title, BorderLayout.NORTH);
 
-        panel = new JPanel();
+        menuPanel = new JPanel();
+        menuPanel.setLayout(new GridLayout(2, 2, 10, 10));
+        headerPanel.add(menuPanel);
+
+        container.add(new rent_room(), "Rent Rooms");
         rentRoomBtn = new JButton("เช่าห้อง");
         rentRoomBtn.addActionListener(this);
-        panel.add(rentRoomBtn);
+        menuPanel.add(rentRoomBtn);
 
-        JButton test = new JButton("เช่าห้อง");
-        panel.add(test);
+        testBtn = new JButton("test");
+        testBtn.addActionListener(this);
+        menuPanel.add(testBtn);
 
-        container.add(panel);
+        testBtn = new JButton("test");
+        testBtn.addActionListener(this);
+        menuPanel.add(testBtn);
+
+        testBtn = new JButton("test");
+        testBtn.addActionListener(this);
+        menuPanel.add(testBtn);
+
+        // JButton test = new JButton("เช่าห้อง");
+        // panel.add(test);
+
+        // container.add(panel);
 
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,7 +64,7 @@ public class Room_Management extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         if(event.getSource() == rentRoomBtn) {
-            this.rentRoom = new rent_room();
+            cardLayout.show(container, "Rent Rooms");
         }
     }
 }

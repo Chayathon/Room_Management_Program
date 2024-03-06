@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class rent_room implements ActionListener {
-    JFrame frame = new JFrame("Rent Rooms");
-    Container container;
+public class rent_room extends JPanel implements ActionListener {
+    // JFrame frame = new JFrame("Rent Rooms");
+    // Container container;
     JLabel FnameLabel, LnameLabel, telLabel, addressLabel;
     JTextField FnameField, LnameField, telField;
     JTextArea addressField;
@@ -17,8 +17,8 @@ public class rent_room implements ActionListener {
     room_receipt roomReceipt;
 
     public rent_room() {
-        container = frame.getContentPane();
-        container.setLayout(new FlowLayout(1, 10, 10));
+        // container = frame.getContentPane();
+        // container.setLayout(new FlowLayout(1, 10, 10));
 
         // JLabel title = new JLabel("เช่าห้อง");
         // title.setHorizontalAlignment(JLabel.CENTER);
@@ -26,40 +26,40 @@ public class rent_room implements ActionListener {
         // container.add(title, BorderLayout.NORTH);
 
         FnameLabel = new JLabel("ชื่อ : ");
-        container.add(FnameLabel);
+        add(FnameLabel);
         FnameField = new JTextField(14);
-        container.add(FnameField);
+        add(FnameField);
         
         LnameLabel = new JLabel("นามสกุล : ");
-        container.add(LnameLabel);
+        add(LnameLabel);
         LnameField = new JTextField(14);
-        container.add(LnameField);
+        add(LnameField);
         
         telLabel = new JLabel("เบอร์โทร : ");
-        container.add(telLabel);
+        add(telLabel);
         telField = new JTextField(14);
-        container.add(telField);
+        add(telField);
         
         addressLabel = new JLabel("ที่อยู่ : ");
-        container.add(addressLabel);
+        add(addressLabel);
         addressField = new JTextArea(3, 14);
-        container.add(addressField);
+        add(addressField);
 
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(fanButton = new JRadioButton("ห้องพัดลม (1,800฿)"));
-        container.add(fanButton);
+        add(fanButton);
         buttonGroup.add(airButton = new JRadioButton("ห้องแอร์ (2,500฿)"));
-        container.add(airButton);
+        add(airButton);
 
         JCheckBox checkBox = new JCheckBox("ยอมรับสัญญาการเช่าห้องพัก");
-        container.add(checkBox);
+        add(checkBox);
 
         confirmBtn = new JButton("    ยืนยัน    ");
         confirmBtn.addActionListener(this);
-        container.add(confirmBtn);
+        add(confirmBtn);
 
-        frame.setSize(500, 250);
-        frame.setVisible(true);
+        // frame.setSize(500, 250);
+        // frame.setVisible(true);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class rent_room implements ActionListener {
             catch (IOException e) {
                 System.out.println("Error while writing file " + e.getMessage());
             }
-            frame.dispose();
+            // frame.dispose();
         }
     }
 
