@@ -10,13 +10,13 @@ public class room_receipt {
     private String tel;
     private String address;
     private Date date;
-    
-    public room_receipt(int roomNumber, String firstName, String lastName, String tel, String address) {
-        this.roomNumber = roomNumber;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.tel = tel;
-        this.address = address;
+
+    public room_receipt() {
+        // this.roomNumber = roomNumber;
+        // this.firstName = firstName;
+        // this.lastName = lastName;
+        // this.tel = tel;
+        // this.address = address;
         this.date = new Date();
 
         try {
@@ -36,6 +36,48 @@ public class room_receipt {
             System.out.println("Error while writing file " + e.getMessage());
         }
     }
+
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public void setFname(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLname(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+    public String getFname() {
+        return firstName;
+    }
+
+    public String getLname() {
+        return lastName;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+    
+    
 
     // public static void main(String[] args) {
     //     room_receipt receipt = new room_receipt(1001, "ชยธร", "เติมพิพัฒน์พงศ์", "0957079861", "253/11 ม.รุ่งเรือง ถ.เทศบาล 4 ต.ปากเพรียว อ.เมือง จ.สระบุรี");

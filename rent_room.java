@@ -6,24 +6,17 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class rent_room extends JPanel implements ActionListener {
-    // JFrame frame = new JFrame("Rent Rooms");
-    // Container container;
+public class rent_room extends JPanel {
     JLabel FnameLabel, LnameLabel, telLabel, addressLabel;
     JTextField FnameField, LnameField, telField;
     JTextArea addressField;
-    JRadioButton fanButton, airButton;
-    JButton confirmBtn;
-    room_receipt roomReceipt;
+    JButton confirmBtn, backBtn;
+    private int roomNumber;
+    private String roomType;
 
-    public rent_room() {
-        // container = frame.getContentPane();
-        // container.setLayout(new FlowLayout(1, 10, 10));
-
-        // JLabel title = new JLabel("เช่าห้อง");
-        // title.setHorizontalAlignment(JLabel.CENTER);
-        // title.setFont(new Font("Tahoma", Font.BOLD, 36));
-        // container.add(title, BorderLayout.NORTH);
+    public rent_room(CardLayout cardLayout, Container container, int roomNumber, String roomType) {
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
 
         FnameLabel = new JLabel("ชื่อ : ");
         add(FnameLabel);
@@ -45,47 +38,69 @@ public class rent_room extends JPanel implements ActionListener {
         addressField = new JTextArea(3, 14);
         add(addressField);
 
-        ButtonGroup buttonGroup = new ButtonGroup();
-        buttonGroup.add(fanButton = new JRadioButton("ห้องพัดลม (1,800฿)"));
-        add(fanButton);
-        buttonGroup.add(airButton = new JRadioButton("ห้องแอร์ (2,500฿)"));
-        add(airButton);
-
         JCheckBox checkBox = new JCheckBox("ยอมรับสัญญาการเช่าห้องพัก");
         add(checkBox);
 
         confirmBtn = new JButton("    ยืนยัน    ");
-        confirmBtn.addActionListener(this);
+        confirmBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                Date date = new Date();
+                try {
+                    SimpleDateFormat dateFormatTitle = new SimpleDateFormat("dd-MM-yyyy");
+                    String fileName = "Room_Receipt_" + dateFormatTitle.format(date) + "_" + roomNumber + ".txt";
+                    FileWriter writer = new FileWriter(fileName);
+                    writer.write("หมายเลขห้อง : " + roomNumber + "\n");
+                    writer.write("ประเภท : " + roomType + "\n");
+                    writer.write("ชื่อ-นามสกุล : " + FnameField.getText() + " " + LnameField.getText() + "\n");
+                    writer.write("เบอร์โทรศัพท์ : " + telField.getText() + "\n");
+                    writer.write("ที่อยู่ : " + addressField.getText() + "\n");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                    writer.write("วันที่เช่า : " + dateFormat.format(date));
+                    writer.close();
+                    System.out.println(fileName + " was saved");
+                }
+                catch (IOException e) {
+                    System.out.println("Error while writing file " + e.getMessage());
+                }
+            }
+        });
         add(confirmBtn);
 
-        // frame.setSize(500, 250);
-        // frame.setVisible(true);
+        backBtn = new JButton("    ย้อนกลับ    ");
+        backBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                cardLayout.first(container);
+            }
+        });
+        add(backBtn);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent event) {
-        Date date = new Date();
-        int roomNumber = 1001;
-        if(event.getSource() == confirmBtn) {
-            try {
-                SimpleDateFormat dateFormatTitle = new SimpleDateFormat("dd-MM-yyyy");
-                String fileName = "Room_Receipt_" + dateFormatTitle.format(date) + "_" + roomNumber + ".txt";
-                FileWriter writer = new FileWriter(fileName);
-                writer.write("หมายเลขห้อง : " + roomNumber + "\n");
-                writer.write("ชื่อ-นามสกุล : " + FnameField.getText() + " " + LnameField.getText() + "\n");
-                writer.write("เบอร์โทรศัพท์ : " + telField.getText() + "\n");
-                writer.write("ที่อยู่ : " + addressField.getText() + "\n");
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                writer.write("วันที่เช่า : " + dateFormat.format(date));
-                writer.close();
-                System.out.println(fileName +" was saved");
-            }
-            catch (IOException e) {
-                System.out.println("Error while writing file " + e.getMessage());
-            }
-            // frame.dispose();
-        }
-    }
+    // @Override
+    // public void actionPerformed(ActionEvent event) {
+    //     Date date = new Date();
+    //     if(event.getSource() == confirmBtn) {
+    //         try {
+    //             SimpleDateFormat dateFormatTitle = new SimpleDateFormat("dd-MM-yyyy");
+    //             String fileName = "Room_Receipt_" + dateFormatTitle.format(date) + "_" + roomNumber + ".txt";
+    //             FileWriter writer = new FileWriter(fileName);
+    //             writer.write("หมายเลขห้อง : " + roomNumber + "\n");
+    //             writer.write("ชื่อ-นามสกุล : " + FnameField.getText() + " " + LnameField.getText() + "\n");
+    //             writer.write("เบอร์โทรศัพท์ : " + telField.getText() + "\n");
+    //             writer.write("ที่อยู่ : " + addressField.getText() + "\n");
+    //             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    //             writer.write("วันที่เช่า : " + dateFormat.format(date));
+    //             writer.close();
+    //             System.out.println(fileName + " was saved");
+    //         }
+    //         catch (IOException e) {
+    //             System.out.println("Error while writing file " + e.getMessage());
+    //         }
+    //         // frame.dispose();
+    //     }
+    //     else if(event.getSource() == backBtn) {
+    //         cardLayout.first(container);
+    //     }
+    // }
 
     // public static void main(String[] args) {
     //     rent_room rent = new rent_room();
