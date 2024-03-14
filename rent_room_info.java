@@ -12,10 +12,12 @@ public class rent_room_info extends JPanel {
     JButton confirmBtn, backBtn;
     private String roomNumber;
     private String roomType;
+    private String roomPrice;
 
-    public rent_room_info(CardLayout cardLayout, Container container, String roomNumber, String roomType) {
+    public rent_room_info(CardLayout cardLayout, Container container, String roomNumber, String roomType, String roomPrice) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
+        this.roomPrice = roomPrice;
 
         FnameLabel = new JLabel("Firstname : ");
         add(FnameLabel);
@@ -56,7 +58,7 @@ public class rent_room_info extends JPanel {
                     System.out.println(fileName + " was saved");
 
                     String fileEdit = "room.txt";
-                    String targetText = roomNumber + " " + roomType + " " + "0";
+                    String targetText = roomNumber + " " + roomType + " " + roomPrice + " " + "0";
 
                     // อ่านไฟล์ทีละบรรทัด
                     BufferedReader reader = new BufferedReader(new FileReader(fileEdit));
@@ -92,8 +94,9 @@ public class rent_room_info extends JPanel {
                             String[] value = targetText.split(" ");
                             String name = value[0];
                             String type = value[1];
+                            String price = value[2];
                             String status = "1";
-                            String newData = name + " " + type + " " + status;
+                            String newData = name + " " + type + " " + price + " " + status;
 
                             if(index != -1) {
                                 lines.set(index, newData);
@@ -113,6 +116,14 @@ public class rent_room_info extends JPanel {
                 catch (IOException e) {
                     System.out.println("Error while writing file " + e.getMessage());
                 }
+
+                try (PrintWriter writer = new PrintWriter(new FileWriter("rent.txt", true))) {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                    writer.println(roomNumber + " " + roomType + " " + roomPrice + " " + FnameField.getText() + " " + LnameField.getText() + " " + telField.getText() + " " + addressField.getText() + " " + dateFormat.format(date));
+                }
+                catch (IOException e) {
+                    System.out.println("Error while writing file " + e.getMessage());
+                }
             }
         });
         add(confirmBtn);
@@ -124,5 +135,37 @@ public class rent_room_info extends JPanel {
             }
         });
         add(backBtn);
+    }
+
+    public void write(String roomNumber, String roomType, String roomPrice) {
+        File fileName = new File("rent.txt");
+
+        if (fileName.exists()) {
+            int choice = JOptionPane.showConfirmDialog(null,
+                    "Confirm to Rent " + roomNumber + " ?", "Confirmation",
+                    JOptionPane.YES_NO_OPTION);
+            if (choice != JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(null, "Rent info not saved.");
+                return;
+            }
+        }
+
+        try {
+            writeToFile(roomNumber, roomType, roomPrice, fileName);
+            JOptionPane.showMessageDialog(null, "Rent info saved successfully!");
+        }
+        catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error saving Rent info: " + e.getMessage());
+        }
+    }
+
+    private static void writeToFile(String roomNumber, String roomType, String roomPrice, File equipmentFile) throws IOException {
+        // try (PrintWriter writer = new PrintWriter(new FileWriter("rent.txt", true))) {
+        //     writer.println("Room No. : " + roomNumber + "\n" +
+        //                     "Room Type : " + roomType + "\n" +
+        //                     "Room Price : " + roomPrice + "\n" +
+        //                     "Name : " + FnameField.getText() + " " + LnameField.getText()
+        //                     );
+        // }
     }
 }

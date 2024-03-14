@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.io.*;
 
 public class add_room extends JFrame implements ActionListener {
-    JLabel roomNumberLabel, roomTypeLabel;
-    JTextField roomNumberField, roomTypeField;
+    JLabel roomNumberLabel, roomTypeLabel, roomPriceLabel;
+    JTextField roomNumberField, roomTypeField, roomPriceField;
     JButton confirmBtn, cancelBtn;
     Container container;
     JPanel headerPanel, menuPanel;
@@ -37,6 +37,11 @@ public class add_room extends JFrame implements ActionListener {
         roomTypeField = new JTextField(14);
         menuPanel.add(roomTypeField);
 
+        roomTypeLabel = new JLabel("Room Price : ");
+        menuPanel.add(roomTypeLabel);
+        roomTypeField = new JTextField(14);
+        menuPanel.add(roomTypeField);
+
         cancelBtn = new JButton("Cancel");
         cancelBtn.addActionListener(this);
         menuPanel.add(cancelBtn);
@@ -49,30 +54,31 @@ public class add_room extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public void saveComplteTicket(String roomNumber, String roomType) {
-        File complteTicketFile = new File("room.txt");
+    public void write(String roomNumber, String roomType, String roomPrice) {
+        File fileName = new File("room.txt");
 
-        if (complteTicketFile.exists()) {
+        if (fileName.exists()) {
             int choice = JOptionPane.showConfirmDialog(null,
-                    "File 'room.txt' already exists. Append data?", "Confirmation",
+                    "Are you sure to Add room " + roomNumberField.getText() + " ?", "Confirmation",
                     JOptionPane.YES_NO_OPTION);
             if (choice != JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(null, "CompleteTicket information not saved.");
+                JOptionPane.showMessageDialog(null, "Room not saved.");
                 return;
             }
         }
 
         try {
-            saveComplteTicketToFile(roomNumber, roomType, complteTicketFile);
-            JOptionPane.showMessageDialog(null, "CompleteTicket information saved successfully!");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error saving CompleteTicket information: " + e.getMessage());
+            writeToFile(roomNumber, roomType, roomPrice, fileName);
+            JOptionPane.showMessageDialog(null, "Room saved successfully!");
+        }
+        catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error saving Room: " + e.getMessage());
         }
     }
 
-        private static void saveComplteTicketToFile(String roomNumber, String roomType, File equipmentFile) throws IOException {
+    private static void writeToFile(String roomNumber, String roomType, String roomPrice, File equipmentFile) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(equipmentFile, true))) {
-            writer.println(roomNumber + " " + roomType + " " + "0");
+            writer.println(roomNumber + " " + roomType + " " + roomPrice + " " + "0");
         }
     }
 
@@ -82,7 +88,7 @@ public class add_room extends JFrame implements ActionListener {
             dispose();
         }
         else if(event.getSource() == confirmBtn) {
-            saveComplteTicket(roomNumberField.getText(), roomTypeField.getText());
+            write(roomNumberField.getText(), roomTypeField.getText(), roomPriceField.getText());
         }
     }
     

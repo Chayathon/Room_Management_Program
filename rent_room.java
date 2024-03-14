@@ -10,7 +10,7 @@ public class rent_room extends JFrame {
     CardLayout cardLayout;
 
     public rent_room() {
-        super("Room Management Program");
+        super("Check In");
         container = getContentPane();
         
         cardLayout = new CardLayout(10, 10);
@@ -20,6 +20,11 @@ public class rent_room extends JFrame {
         headerPanel = new JPanel();
         headerPanel.setLayout(new BorderLayout());
         container.add(headerPanel);
+
+        JLabel title = new JLabel("Check In");
+        title.setHorizontalAlignment(JLabel.CENTER);
+        title.setFont(new Font("Tahoma", Font.BOLD, 28));
+        headerPanel.add(title, BorderLayout.NORTH);
 
         menuPanel = new JPanel();
         menuPanel.setLayout(new GridLayout(3, 10, 10, 10));
@@ -35,12 +40,13 @@ public class rent_room extends JFrame {
                 String[] data = line.split(" ");
                 String roomNumber = data[0];
                 String roomType = data[1];
-                String roomStatus = data[2];
+                String roomPrice = data[2];
+                String roomStatus = data[3];
                 
                 roomBtn = new JButton(roomNumber);
                 // ประมวลผลข้อมูลต่อได้
-                container.add(new rent_room_info(cardLayout, container, roomNumber, roomType), roomNumber);
-                roomBtn = new JButton(roomNumber + " " + roomType + " " + roomStatus);
+                container.add(new rent_room_info(cardLayout, container, roomNumber, roomType, roomPrice), roomNumber);
+                roomBtn = new JButton(roomNumber + " " + roomType + " " + roomPrice);
                 roomBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
                         cardLayout.show(container, roomNumber);

@@ -40,12 +40,13 @@ public class edit_room extends JFrame {
                 String[] data = line.split(" ");
                 String roomNumber = data[0];
                 String roomType = data[1];
-                String roomStatus = data[2];
+                String roomPrice = data[2];
+                String roomStatus = data[3];
                 
                 roomBtn = new JButton(roomNumber);
                 // ประมวลผลข้อมูลต่อได้
-                container.add(new edit_room_info(cardLayout, container, roomNumber, roomType, roomStatus), roomNumber);
-                roomBtn = new JButton(roomNumber + " " + roomType + " " + roomStatus);
+                container.add(new edit_room_info(cardLayout, container, roomNumber, roomType, roomPrice,  roomStatus), roomNumber);
+                roomBtn = new JButton(roomNumber + " " + roomType + " " + roomPrice);
                 roomBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
                         cardLayout.show(container, roomNumber);

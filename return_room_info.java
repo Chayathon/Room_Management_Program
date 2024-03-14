@@ -4,63 +4,86 @@ import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
-
-public class edit_room_info extends JPanel implements ActionListener {
-    JLabel roomNumberLabel, roomTypeLabel, roomPriceLabel, roomStatusLabel;
-    JTextField roomNumberField, roomTypeField, roomPriceField, roomStatusField;
-    JTextArea addressField;
+public class return_room_info extends JPanel {
+    JLabel roomNumberLabel, roomTypeLabel, roomPriceLabel, roomStatusLabel, nameLabel, telLabel, addressLabel;
     JButton confirmBtn, cancelBtn;
     private String roomNumber;
     private String roomType;
     private String roomPrice;
     private String roomStatus;
 
-    public edit_room_info(CardLayout cardLayout, Container container, String roomNumber, String roomType, String roomPrice, String roomStatus) {
+    public return_room_info(CardLayout cardLayout, Container container, String roomNumber, String roomType, String roomPrice, String roomStatus) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.roomPrice = roomPrice;
         this.roomStatus = roomStatus;
 
-        roomNumberLabel = new JLabel("Room No. : ");
+        roomNumberLabel = new JLabel("Room No. : " + roomNumber);
         add(roomNumberLabel);
-        roomNumberField = new JTextField(14);
-        add(roomNumberField);
 
-        roomTypeLabel = new JLabel("Type : ");
+        roomTypeLabel = new JLabel("Type : " + roomType);
         add(roomTypeLabel);
-        roomTypeField = new JTextField(14);
-        add(roomTypeField);
 
-        roomPriceLabel = new JLabel("Price : ");
+        roomPriceLabel = new JLabel("Price : " + roomPrice);
         add(roomPriceLabel);
-        roomPriceField = new JTextField(14);
-        add(roomPriceField);
 
-        roomStatusLabel = new JLabel("Status : ");
-        add(roomStatusLabel);
-        roomStatusField = new JTextField(14);
-        add(roomStatusField);
+        try {
+            String fileName = "rent.txt";
+            File file = new File(fileName);
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(" ");
+                String firstName = data[3];
+                String lastName = data[4];
+                String tel = data[5];
+                String address = data[6];
+                
+                nameLabel = new JLabel("Name : " + firstName + " " + lastName);
+                add(nameLabel);
+
+                telLabel = new JLabel("Tel : " + tel);
+                add(telLabel);
+
+                addressLabel = new JLabel("Address : " + address);
+                add(addressLabel);
+            }
+    
+            reader.close();
+        }
+        catch(IOException e) {
+            System.out.println("Error while writing file " + e.getMessage());
+        }
 
         cancelBtn = new JButton("Cancel");
         cancelBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 cardLayout.first(container);
-            }
+            } 
         });
         add(cancelBtn);
 
         confirmBtn = new JButton("Confirm");
-        confirmBtn.addActionListener(this);
+        confirmBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                int choice = JOptionPane.showConfirmDialog(null, "Confirm to Check Out " + roomNumber + " ?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                if (choice == JOptionPane.YES_OPTION) {
+                    update(roomNumber, roomType, roomPrice, roomStatus);
+                    return;
+                }
+            }
+        });
         add(confirmBtn);
 
         setSize(600, 600);
         setVisible(true);
     }
 
-    public void editRoom(String oldRoomNumber, String oldRoomType, String oldRoomPrice, String oldRoomStatus, String newRoomNumber, String newRoomType, String newRoomPrice, String newRoomStatus) {
+    public void update(String roomNumber, String roomType, String roomPrice, String roomStatus) {
         try {
             String fileEdit = "room.txt";
-            String targetText = oldRoomNumber + " " + oldRoomType + " " + oldRoomPrice + " " + oldRoomStatus;
+            String targetText = roomNumber + " " + roomType + " " + roomPrice + " " + roomStatus;
 
             // อ่านไฟล์ทีละบรรทัด
             BufferedReader reader = new BufferedReader(new FileReader(fileEdit));
@@ -70,10 +93,9 @@ public class edit_room_info extends JPanel implements ActionListener {
                 // ตรวจสอบว่าบรรทัดตรงกับข้อความที่ต้องการหรือไม่
                 
                 String[] data = line.split(" ");
-                String roomNumber = data[0];
-                String roomType = data[1];
-                String roomPrice = data[2];
-                String roomStatus = data[3];
+                String number = data[0];
+                String type = data[1];
+                String price = data[2];
 
                 if (line.contains(targetText)) {
                     System.out.println("Found : " + targetText);
@@ -95,7 +117,7 @@ public class edit_room_info extends JPanel implements ActionListener {
                     System.out.println("Line : " + index);
 
                     String[] value = targetText.split(" ");
-                    String newData = newRoomNumber + " " + newRoomType + " " + newRoomPrice + " " + newRoomStatus;
+                    String newData = number + " " + type + " " + price + " " + "0";
 
                     if(index != -1) {
                         lines.set(index, newData);
@@ -114,13 +136,6 @@ public class edit_room_info extends JPanel implements ActionListener {
         }
         catch (IOException e) {
             System.out.println("Error while writing file " + e.getMessage());
-        }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent event) {
-        if(event.getSource() == confirmBtn) {
-            editRoom(roomNumber, roomType, roomPrice, roomStatus, roomNumberField.getText(), roomTypeField.getText(), roomPriceField.getText(), roomStatusField.getText());
         }
     }
 }
