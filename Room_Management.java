@@ -7,13 +7,15 @@ import javax.swing.*;
 public class Room_Management extends JFrame implements ActionListener {
     JPanel headerPanel, menuPanel;
     Container container;
-    JButton rentRoomBtn, returnRoomBtn, addRoomBtn, editRoomBtn, deleteRoomBtn, ComplaintBtn;
+    JButton rentRoomBtn, returnRoomBtn, addRoomBtn, editRoomBtn, deleteRoomBtn, ComplaintBtn, ReportBtn, FinanceBtn;
     rent_room rent_room;
     return_room return_room;
     add_room add_room;
     edit_room edit_room;
     delete_room delete_room;
-    Complaint Complaint;
+    Complaint Complaint; //ร้องเรียน
+    Report Report; //รายงาน
+    Finance Finance; // การเงิน
 
     public Room_Management() {
         super("Room Management Program");
@@ -29,7 +31,7 @@ public class Room_Management extends JFrame implements ActionListener {
         headerPanel.add(title, BorderLayout.NORTH);
 
         menuPanel = new JPanel();
-        menuPanel.setLayout(new GridLayout(3, 10, 10, 10));
+        menuPanel.setLayout(new GridLayout(4, 10, 10, 10));
         headerPanel.add(menuPanel);
 
         rentRoomBtn = new JButton("Check in");
@@ -52,9 +54,19 @@ public class Room_Management extends JFrame implements ActionListener {
         deleteRoomBtn.addActionListener(this);
         menuPanel.add(deleteRoomBtn);
 
+        FinanceBtn = new JButton("Finance");
+        FinanceBtn.addActionListener(this);
+        menuPanel.add(FinanceBtn);
+        
         ComplaintBtn = new JButton("Complaint");
         ComplaintBtn.addActionListener(this);
         menuPanel.add(ComplaintBtn);
+
+        ReportBtn = new JButton("Report");
+        ReportBtn.addActionListener(this);
+        menuPanel.add(ReportBtn);
+
+        
 
 
         setSize(600, 600);
@@ -84,6 +96,15 @@ public class Room_Management extends JFrame implements ActionListener {
         }
         else if(event.getSource() == ComplaintBtn) {
             Complaint = new Complaint();
+        }
+        else if(event.getSource() == ReportBtn){
+            Report = new Report();
+        }
+        else if(event.getSource() == ReportBtn){
+            Report = new Report();
+        }
+        else if(event.getSource() == FinanceBtn){
+            Finance = new Finance();
         }
     }
 }
