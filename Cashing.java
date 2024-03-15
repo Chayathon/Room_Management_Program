@@ -16,7 +16,7 @@ public class Cashing extends JFrame {
     public Cashing() {
         super("Cashing Payment");
         container = getContentPane();
-        
+
         cardLayout = new CardLayout(10, 10);
         container.setLayout(new FlowLayout());
         container.setLayout(cardLayout);
@@ -43,96 +43,66 @@ public class Cashing extends JFrame {
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(" ");
                 String roomNumber = data[0];
-                String roomType = data[1];
-                String roomPrice = data[2];
-                String roomStatus = data[3];
+                String paymentStatus = data[1];
 
-                // Check if payment history has zero at position 2 and for current month
-                boolean canEnableButton = checkPaymentHistory(roomNumber);
+                if (paymentStatus.equals("0")) {
+                    roomBtn = new JButton(roomNumber);
 
-                roomBtn = new JButton(roomNumber);
+                    roomBtn.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent event) {
+                            String electricityCost = JOptionPane.showInputDialog("Enter payment :");
+                            double totalCost = calculateTotalCost(electricityCost);
+                            savePaymentData(roomNumber, electricityCost, totalCost);
 
-                roomBtn.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent event) {
-                        String electricityCost = JOptionPane.showInputDialog("Enter electricity cost:");
-                        double roomPriceDouble = Double.parseDouble(roomPrice);
-                        double totalCost = roomPriceDouble + (Double.parseDouble(electricityCost) * 8) + 100;
+                            // Show room summary window
+                            currentRoomSummary = new RoomSummary(roomNumber, "Unknown", "Unknown", electricityCost, totalCost);
 
-                        // Get current date
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        String currentDate = dateFormat.format(new Date());
+                            dispose(); // Close the current window
+                            SwingUtilities.invokeLater(new Runnable() {
+                                public void run() {
+                                    new Cashing(); // Open a new Cashing window
+                                }
+                            });
+                        }
+                    });
 
-                        
-                        // Show room summary window
-                        currentRoomSummary = new RoomSummary(roomNumber, roomType, roomPrice, electricityCost, totalCost);
-
-                        dispose(); // Close the current window
-                        SwingUtilities.invokeLater(new Runnable() {
-                            public void run() {
-                                new PaymentRent(); // Open a new PaymentRent window
-                            }
-                        });
-                    }
-                });
-
-               
-                
-                roomBtn.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent event) {
-                        cardLayout.show(container, roomNumber);
-                    }
-                });
-
-                if(roomStatus.equals("1") && !checkPaymentHistory(roomNumber)) {
-                    menuPanel.add(roomBtn);
-                } else {
-                    roomBtn.setEnabled(false);
                     menuPanel.add(roomBtn);
                 }
-                        
-                
-                 
             }
 
             reader.close();
         } catch(IOException e) {
-            System.out.println("Error while writing file " + e.getMessage());
+            System.out.println("Error while reading file " + e.getMessage());
         }
-        
+
         setSize(1700, 400);
         setVisible(true);
     }
 
-    private boolean checkPaymentHistory(String roomNumber) {
-        try {
-            String fileName = "payment_history.txt";
-            File file = new File(fileName);
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line;
-    
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
-    
-            while ((line = reader.readLine()) != null) {
-                String[] data = line.split(" ");
-                if (data[0].equals(roomNumber) && data.length >= 4 && data[3].startsWith(dateFormat.format(new Date()))) {
-                    reader.close();
-                    return true; // ค่าห้องได้ถูกชำระแล้วสำหรับเดือนปัจจุบัน
-                }
-            }
-    
-            reader.close();
+    private double calculateTotalCost(String electricityCost) {
+        // Implement your total cost calculation logic here
+        double roomPriceDouble = 0.0; // Get room price from room.txt or another source
+        return roomPriceDouble + (Double.parseDouble(electricityCost) * 8) + 100;
+    }
+
+    private void savePaymentData(String roomNumber, String electricityCost, double totalCost) {
+        // Get current date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String currentDate = dateFormat.format(new Date());
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("payment_history.txt", true))) {
+            writer.write(roomNumber + " 1 " + electricityCost + " " + totalCost + " " + currentDate);
+            writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(container, "Error saving payment details. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    
-        return false; // ยังไม่มีการชำระเงินสำหรับเดือนปัจจุบัน
     }
-    
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new PaymentRent();
+                new Cashing();
             }
         });
     }

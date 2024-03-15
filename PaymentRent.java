@@ -16,7 +16,7 @@ public class PaymentRent extends JFrame {
     public PaymentRent() {
         super("Calculate Payment Rent");
         container = getContentPane();
-        
+
         cardLayout = new CardLayout(10, 10);
         container.setLayout(new FlowLayout());
         container.setLayout(cardLayout);
@@ -63,6 +63,7 @@ public class PaymentRent extends JFrame {
                         String currentDate = dateFormat.format(new Date());
 
                         try (BufferedWriter writer = new BufferedWriter(new FileWriter("payment_history.txt", true))) {
+                            // ปรับเปลี่ยนการเขียนข้อมูลในไฟล์ payment_history.txt
                             writer.write(roomNumber + " "+ "0 " + electricityCost + " " + totalCost + " " + currentDate);
                             writer.newLine();
                             // JOptionPane.showMessageDialog(container, "Payment details saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -82,8 +83,6 @@ public class PaymentRent extends JFrame {
                     }
                 });
 
-               
-                
                 roomBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
                         cardLayout.show(container, roomNumber);
@@ -96,16 +95,13 @@ public class PaymentRent extends JFrame {
                     roomBtn.setEnabled(false);
                     menuPanel.add(roomBtn);
                 }
-                        
-                
-                 
             }
 
             reader.close();
         } catch(IOException e) {
             System.out.println("Error while writing file " + e.getMessage());
         }
-        
+
         setSize(1700, 400);
         setVisible(true);
     }
@@ -116,25 +112,24 @@ public class PaymentRent extends JFrame {
             File file = new File(fileName);
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
-    
+
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
-    
+
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(" ");
-                if (data[0].equals(roomNumber) && data.length >= 4 && data[3].startsWith(dateFormat.format(new Date()))) {
+                if (data[0].equals(roomNumber) && data.length >= 5 && data[4].startsWith(dateFormat.format(new Date()))) {
                     reader.close();
                     return true; // ค่าห้องได้ถูกชำระแล้วสำหรับเดือนปัจจุบัน
                 }
             }
-    
+
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    
+
         return false; // ยังไม่มีการชำระเงินสำหรับเดือนปัจจุบัน
     }
-    
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
