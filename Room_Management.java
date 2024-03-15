@@ -69,6 +69,7 @@ public class Room_Management extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
+    
     public static void main(String[] args) {
         Room_Management RM = new Room_Management();
     }

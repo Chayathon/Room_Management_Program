@@ -6,9 +6,9 @@ import javax.swing.*;
 public class Finance extends JFrame implements ActionListener {
     JPanel headerPanel, menuPanel;
     Container container;
-    JButton PaymentReportBtn, ComplaintHistoryBtn;
-    PaymentReport PaymentReport;
-    ComplaintHistory ComplaintHistory;
+    JButton PaymentRentBtn, InvoicingBtn;
+    PaymentRent PaymentRent;
+    Invoicing Invoicing;
 
 
     public Finance() {
@@ -28,13 +28,13 @@ public class Finance extends JFrame implements ActionListener {
         menuPanel.setLayout(new GridLayout(3, 10, 10, 10));
         headerPanel.add(menuPanel);
 
-        PaymentReportBtn = new JButton("Payment");
-        PaymentReportBtn.addActionListener(this);
-        menuPanel.add(PaymentReportBtn);
+        PaymentRentBtn = new JButton("Payment Rent");
+        PaymentRentBtn.addActionListener(this);
+        menuPanel.add(PaymentRentBtn);
 
-        ComplaintHistoryBtn = new JButton("Invoicing");
-        ComplaintHistoryBtn.addActionListener(this);
-        menuPanel.add(ComplaintHistoryBtn);
+        InvoicingBtn = new JButton("Invoicing Report");
+        InvoicingBtn.addActionListener(this);
+        menuPanel.add(InvoicingBtn);
     
 
         setSize(600, 600);
@@ -44,10 +44,10 @@ public class Finance extends JFrame implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent event) {
-        if(event.getSource() == PaymentReportBtn) {
-            PaymentReport = new PaymentReport();
-        } else if(event.getSource() == ComplaintHistoryBtn) {
-            // ComplaintHistory = new ComplaintHistory();
+        if(event.getSource() == PaymentRentBtn) {
+            PaymentRent = new PaymentRent();
+        } else if(event.getSource() == InvoicingBtn) {
+            Invoicing = new Invoicing();
         } 
     }
 }
