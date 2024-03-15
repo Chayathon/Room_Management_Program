@@ -3,14 +3,14 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 
-public class rent_room extends JFrame {
+public class return_room extends JFrame {
     JPanel headerPanel, menuPanel;
     Container container;
     JButton roomBtn;
     CardLayout cardLayout;
 
-    public rent_room() {
-        super("Check In");
+    public return_room() {
+        super("Return Room");
         container = getContentPane();
         
         cardLayout = new CardLayout(10, 10);
@@ -21,7 +21,7 @@ public class rent_room extends JFrame {
         headerPanel.setLayout(new BorderLayout());
         container.add(headerPanel);
 
-        JLabel title = new JLabel("Check In");
+        JLabel title = new JLabel("Check Out");
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setFont(new Font("Tahoma", Font.BOLD, 28));
         headerPanel.add(title, BorderLayout.NORTH);
@@ -45,7 +45,7 @@ public class rent_room extends JFrame {
                 
                 roomBtn = new JButton(roomNumber);
                 // ประมวลผลข้อมูลต่อได้
-                container.add(new rent_room_info(cardLayout, container, roomNumber, roomType, roomPrice), roomNumber);
+                container.add(new return_room_info(cardLayout, container, roomNumber, roomType, roomPrice, roomStatus), roomNumber);
                 roomBtn = new JButton(roomNumber + " " + roomType + " " + roomPrice);
                 roomBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
@@ -53,7 +53,7 @@ public class rent_room extends JFrame {
                     }
                 });
     
-                if(roomStatus.equals("0")) {
+                if(roomStatus.equals("1")) {
                     menuPanel.add(roomBtn);
                 }
                 else {

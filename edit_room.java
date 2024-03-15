@@ -3,16 +3,16 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 
-public class rent_room extends JFrame {
+public class edit_room extends JFrame {
     JPanel headerPanel, menuPanel;
     Container container;
-    JButton roomBtn;
     CardLayout cardLayout;
+    JButton roomBtn;
 
-    public rent_room() {
-        super("Check In");
+    public edit_room() {
+        super("Edit Room");
         container = getContentPane();
-        
+
         cardLayout = new CardLayout(10, 10);
         container.setLayout(new FlowLayout());
         container.setLayout(cardLayout);
@@ -21,13 +21,13 @@ public class rent_room extends JFrame {
         headerPanel.setLayout(new BorderLayout());
         container.add(headerPanel);
 
-        JLabel title = new JLabel("Check In");
+        JLabel title = new JLabel("Edit Room");
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setFont(new Font("Tahoma", Font.BOLD, 28));
         headerPanel.add(title, BorderLayout.NORTH);
 
         menuPanel = new JPanel();
-        menuPanel.setLayout(new GridLayout(3, 10, 10, 10));
+        menuPanel.setLayout(new GridLayout(3, 2, 10, 10));
         headerPanel.add(menuPanel);
 
         try {
@@ -45,21 +45,14 @@ public class rent_room extends JFrame {
                 
                 roomBtn = new JButton(roomNumber);
                 // ประมวลผลข้อมูลต่อได้
-                container.add(new rent_room_info(cardLayout, container, roomNumber, roomType, roomPrice), roomNumber);
+                container.add(new edit_room_info(cardLayout, container, roomNumber, roomType, roomPrice,  roomStatus), roomNumber);
                 roomBtn = new JButton(roomNumber + " " + roomType + " " + roomPrice);
                 roomBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
                         cardLayout.show(container, roomNumber);
                     }
                 });
-    
-                if(roomStatus.equals("0")) {
-                    menuPanel.add(roomBtn);
-                }
-                else {
-                    roomBtn.setEnabled(false);
-                    menuPanel.add(roomBtn);
-                }
+                menuPanel.add(roomBtn);
             }
     
             reader.close();
@@ -71,4 +64,6 @@ public class rent_room extends JFrame {
         setSize(1700, 400);
         setVisible(true);
     }
+
+    
 }

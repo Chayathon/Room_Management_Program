@@ -1,6 +1,0 @@
-Room No. : 303
-Type : Air Conditioner
-Name : Chayathon Termpipatphong
-Tel : 0957079861
-Address : 253/11
-Rent date : 11-03-2567 22:30:24
