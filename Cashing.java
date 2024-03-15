@@ -18,7 +18,6 @@ public class Cashing extends JFrame {
         container = getContentPane();
 
         cardLayout = new CardLayout(10, 10);
-        container.setLayout(new FlowLayout());
         container.setLayout(cardLayout);
 
         headerPanel = new JPanel();
@@ -31,8 +30,9 @@ public class Cashing extends JFrame {
         headerPanel.add(title, BorderLayout.NORTH);
 
         menuPanel = new JPanel();
-        menuPanel.setLayout(new GridLayout(3, 10, 10, 10));
-        headerPanel.add(menuPanel);
+        menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS)); // Set vertical layout
+        JScrollPane scrollPane = new JScrollPane(menuPanel); // Add scrolling functionality
+        headerPanel.add(scrollPane, BorderLayout.CENTER);
 
         try {
             String fileName = "payment_history.txt";
@@ -40,6 +40,8 @@ public class Cashing extends JFrame {
             BufferedReader reader = new BufferedReader(new FileReader(file));
 
             String line;
+            JPanel rowPanel = new JPanel(); // Initialize a new panel for each row
+            rowPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10)); // Set flow layout for horizontal arrangement
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(" ");
                 String roomNumber = data[0];
@@ -66,8 +68,18 @@ public class Cashing extends JFrame {
                         }
                     });
 
-                    menuPanel.add(roomBtn);
+                    rowPanel.add(roomBtn);
+                    if (rowPanel.getComponentCount() == 10) { // When 10 buttons are added, add the rowPanel to menuPanel
+                        menuPanel.add(rowPanel);
+                        menuPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical space between rows
+                        rowPanel = new JPanel(); // Reset the rowPanel for the next row
+                        rowPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10)); // Set layout for the next row
+                    }
                 }
+            }
+
+            if (rowPanel.getComponentCount() > 0) { // Add the last row if there are remaining buttons
+                menuPanel.add(rowPanel);
             }
 
             reader.close();
@@ -75,7 +87,7 @@ public class Cashing extends JFrame {
             System.out.println("Error while reading file " + e.getMessage());
         }
 
-        setSize(1700, 400);
+        setSize(1500, 800);
         setVisible(true);
     }
 
