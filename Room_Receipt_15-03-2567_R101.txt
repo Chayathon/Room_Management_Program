@@ -1,0 +1,6 @@
+Room No. : R101
+Type : Fan
+Name : 00 00
+Tel : 00
+Address : 00
+Rent date : 15-03-2567 20:03:27
