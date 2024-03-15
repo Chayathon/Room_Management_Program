@@ -14,7 +14,6 @@ public class Room_Management extends JFrame implements ActionListener {
     edit_room edit_room;
     delete_room delete_room;
     Complaint Complaint; //ร้องเรียน
-    Report Report; //รายงาน
     Finance Finance; // การเงิน
 
     public Room_Management() {
@@ -57,15 +56,12 @@ public class Room_Management extends JFrame implements ActionListener {
         FinanceBtn = new JButton("Finance");
         FinanceBtn.addActionListener(this);
         menuPanel.add(FinanceBtn);
-        
+
         ComplaintBtn = new JButton("Complaint");
         ComplaintBtn.addActionListener(this);
         menuPanel.add(ComplaintBtn);
 
-        ReportBtn = new JButton("Report");
-        ReportBtn.addActionListener(this);
-        menuPanel.add(ReportBtn);
-
+ 
         
 
 
@@ -96,12 +92,6 @@ public class Room_Management extends JFrame implements ActionListener {
         }
         else if(event.getSource() == ComplaintBtn) {
             Complaint = new Complaint();
-        }
-        else if(event.getSource() == ReportBtn){
-            Report = new Report();
-        }
-        else if(event.getSource() == ReportBtn){
-            Report = new Report();
         }
         else if(event.getSource() == FinanceBtn){
             Finance = new Finance();
