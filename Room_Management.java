@@ -7,12 +7,13 @@ import javax.swing.*;
 public class Room_Management extends JFrame implements ActionListener {
     JPanel headerPanel, menuPanel;
     Container container;
-    JButton rentRoomBtn, returnRoomBtn, addRoomBtn, editRoomBtn, deleteRoomBtn;
+    JButton rentRoomBtn, returnRoomBtn, addRoomBtn, editRoomBtn, deleteRoomBtn, ComplaintBtn;
     rent_room rent_room;
     return_room return_room;
     add_room add_room;
     edit_room edit_room;
     delete_room delete_room;
+    Complaint Complaint;
 
     public Room_Management() {
         super("Room Management Program");
@@ -51,6 +52,11 @@ public class Room_Management extends JFrame implements ActionListener {
         deleteRoomBtn.addActionListener(this);
         menuPanel.add(deleteRoomBtn);
 
+        ComplaintBtn = new JButton("Complaint");
+        ComplaintBtn.addActionListener(this);
+        menuPanel.add(ComplaintBtn);
+
+
         setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -75,6 +81,9 @@ public class Room_Management extends JFrame implements ActionListener {
         }
         else if(event.getSource() == deleteRoomBtn) {
             delete_room = new delete_room();
+        }
+        else if(event.getSource() == ComplaintBtn) {
+            Complaint = new Complaint();
         }
     }
 }
