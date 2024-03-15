@@ -54,7 +54,6 @@ public class RoomSummary extends JFrame {
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
         add(panel);
-
         
 
         setSize(350, 300);

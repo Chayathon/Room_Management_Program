@@ -6,9 +6,10 @@ import javax.swing.*;
 public class Finance extends JFrame implements ActionListener {
     JPanel headerPanel, menuPanel;
     Container container;
-    JButton PaymentRentBtn, InvoicingBtn;
+    JButton PaymentRentBtn, InvoicingBtn, CashingBtn;
     PaymentRent PaymentRent;
     Invoicing Invoicing;
+    Cashing Cashing;
 
 
     public Finance() {
@@ -32,6 +33,10 @@ public class Finance extends JFrame implements ActionListener {
         PaymentRentBtn.addActionListener(this);
         menuPanel.add(PaymentRentBtn);
 
+        CashingBtn = new JButton("Cashing");
+        CashingBtn.addActionListener(this);
+        menuPanel.add(CashingBtn);
+
         InvoicingBtn = new JButton("Invoicing Report");
         InvoicingBtn.addActionListener(this);
         menuPanel.add(InvoicingBtn);
@@ -48,6 +53,8 @@ public class Finance extends JFrame implements ActionListener {
             PaymentRent = new PaymentRent();
         } else if(event.getSource() == InvoicingBtn) {
             Invoicing = new Invoicing();
+        }  else if(event.getSource() == CashingBtn) {
+            Cashing = new Cashing();
         } 
     }
 }

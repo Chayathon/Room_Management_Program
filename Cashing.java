@@ -5,7 +5,7 @@ import java.io.*;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
-public class PaymentRent extends JFrame {
+public class Cashing extends JFrame {
     JPanel headerPanel, menuPanel;
     Container container;
     JButton roomBtn;
@@ -13,8 +13,8 @@ public class PaymentRent extends JFrame {
 
     private RoomSummary currentRoomSummary;
 
-    public PaymentRent() {
-        super("Calculate Payment Rent");
+    public Cashing() {
+        super("Cashing Payment");
         container = getContentPane();
         
         cardLayout = new CardLayout(10, 10);
@@ -25,7 +25,7 @@ public class PaymentRent extends JFrame {
         headerPanel.setLayout(new BorderLayout());
         container.add(headerPanel);
 
-        JLabel title = new JLabel("Calculate Payment Rent");
+        JLabel title = new JLabel("Cashing Payment");
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setFont(new Font("Tahoma", Font.BOLD, 28));
         headerPanel.add(title, BorderLayout.NORTH);
@@ -35,7 +35,7 @@ public class PaymentRent extends JFrame {
         headerPanel.add(menuPanel);
 
         try {
-            String fileName = "room.txt";
+            String fileName = "payment_history.txt";
             File file = new File(fileName);
             BufferedReader reader = new BufferedReader(new FileReader(file));
 
@@ -62,14 +62,7 @@ public class PaymentRent extends JFrame {
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         String currentDate = dateFormat.format(new Date());
 
-                        try (BufferedWriter writer = new BufferedWriter(new FileWriter("payment_history.txt", true))) {
-                            writer.write(roomNumber + " "+ "0 " + electricityCost + " " + totalCost + " " + currentDate);
-                            writer.newLine();
-                            // JOptionPane.showMessageDialog(container, "Payment details saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            JOptionPane.showMessageDialog(container, "Error saving payment details. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
+                        
                         // Show room summary window
                         currentRoomSummary = new RoomSummary(roomNumber, roomType, roomPrice, electricityCost, totalCost);
 
