@@ -6,9 +6,9 @@ import javax.swing.*;
 public class Finance extends JFrame implements ActionListener {
     JPanel headerPanel, menuPanel;
     Container container;
-    JButton PaymentRentBtn, InvoicingBtn, CashingBtn;
+    JButton PaymentRentBtn, HistoryBtn, CashingBtn;
     PaymentRent PaymentRent;
-    Invoicing Invoicing;
+    History History;
     Cashing Cashing;
 
 
@@ -37,9 +37,9 @@ public class Finance extends JFrame implements ActionListener {
         CashingBtn.addActionListener(this);
         menuPanel.add(CashingBtn);
 
-        InvoicingBtn = new JButton("Invoicing Report");
-        InvoicingBtn.addActionListener(this);
-        menuPanel.add(InvoicingBtn);
+        HistoryBtn = new JButton("History");
+        HistoryBtn.addActionListener(this);
+        menuPanel.add(HistoryBtn);
     
 
         setSize(600, 600);
@@ -51,8 +51,8 @@ public class Finance extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         if(event.getSource() == PaymentRentBtn) {
             PaymentRent = new PaymentRent();
-        } else if(event.getSource() == InvoicingBtn) {
-            Invoicing = new Invoicing();
+        } else if(event.getSource() == HistoryBtn) {
+            History = new History();
         }  else if(event.getSource() == CashingBtn) {
             Cashing = new Cashing();
         } 
