@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class ComplaintForm extends JFrame {
-    private JTextField nameField;
+    // private JTextField nameField;
     private JTextArea complaintArea;
 
     public ComplaintForm() {
@@ -15,14 +15,6 @@ public class ComplaintForm extends JFrame {
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
-
-        JLabel nameLabel = new JLabel("Name:");
-        nameLabel.setBounds(20, 20, 80, 25);
-        panel.add(nameLabel);
-
-        nameField = new JTextField(20);
-        nameField.setBounds(100, 20, 250, 25);
-        panel.add(nameField);
 
         JLabel complaintLabel = new JLabel("Complaint:");
         complaintLabel.setBounds(20, 50, 80, 25);
@@ -38,6 +30,7 @@ public class ComplaintForm extends JFrame {
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 submitComplaint();
+                disposeForm(); // เมื่อกด submit ให้ปิดหน้าลง
             }
         });
         panel.add(submitButton);
@@ -47,32 +40,34 @@ public class ComplaintForm extends JFrame {
     }
 
     private void submitComplaint() {
-        String name = nameField.getText();
+        // String name = nameField.getText();
         String complaint = complaintArea.getText();
 
         // Save complaint details to a text file
-        saveToFile(name, complaint);
-
-        // Additional processing or actions related to the complaint submission can be added here
-
-        // System.out.println(name);
-        // System.out.println(complaint);
+        saveToFile(complaint);
     }
 
-    private void saveToFile(String name, String complaint) {
+    private void saveToFile(String complaint) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("complaints.txt", true))) {
-            writer.write(name+" ");
             writer.write(complaint);
             writer.newLine();  // Add an extra line for better readability between entries
 
-            // System.out.println("Complaint details saved to complaints.txt");
+            JOptionPane.showMessageDialog(this, "Complaint details saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException e) {
             e.printStackTrace();
-            // JOptionPane.showMessageDialog(this, "Error saving complaint details. Please try again.");
+            JOptionPane.showMessageDialog(this, "Error saving complaint details. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    private void disposeForm() {
+        this.dispose(); // ปิดหน้าต่าง
     }
 
     // public static void main(String[] args) {
-    //     new Complaint();
+    //     SwingUtilities.invokeLater(new Runnable() {
+    //         public void run() {
+    //             new ComplaintForm();
+    //         }
+    //     });
     // }
 }

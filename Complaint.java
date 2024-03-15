@@ -38,7 +38,6 @@ public class Complaint extends JFrame implements ActionListener {
     
 
         setSize(600, 600);
-        // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
      
