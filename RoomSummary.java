@@ -20,7 +20,7 @@ public class RoomSummary extends JFrame {
         roomNumberLabel = new JLabel("Room Number:");
         roomTypeLabel = new JLabel("Room Type:");
         roomPriceLabel = new JLabel("Room Price:");
-        electricityCostLabel = new JLabel("Electricity Cost:");
+        electricityCostLabel = new JLabel("Electricity Unit:");
         waterCostLabel = new JLabel("Water Cost:");
         totalCostLabel = new JLabel("Total Cost:");
         dateLabel = new JLabel("Date:");

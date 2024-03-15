@@ -54,7 +54,7 @@ public class PaymentRent extends JFrame {
 
                 roomBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-                        String electricityCost = JOptionPane.showInputDialog("Enter electricity cost:");
+                        String electricityCost = JOptionPane.showInputDialog("Enter electricity unit:");
                         double roomPriceDouble = Double.parseDouble(roomPrice);
                         double totalCost = roomPriceDouble + (Double.parseDouble(electricityCost) * 8) + 100;
 
