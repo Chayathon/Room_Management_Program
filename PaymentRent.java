@@ -11,6 +11,8 @@ public class PaymentRent extends JFrame {
     JButton roomBtn;
     CardLayout cardLayout;
 
+    private RoomSummary currentRoomSummary;
+
     public PaymentRent() {
         super("Calculate Payment Rent");
         container = getContentPane();
@@ -68,12 +70,20 @@ public class PaymentRent extends JFrame {
                             e.printStackTrace();
                             JOptionPane.showMessageDialog(container, "Error saving payment details. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
                         }
-
                         // Show room summary window
-                        new RoomSummary(roomNumber, roomType, roomPrice, electricityCost, totalCost);
+                        currentRoomSummary = new RoomSummary(roomNumber, roomType, roomPrice, electricityCost, totalCost);
+
+                        dispose(); // Close the current window
+                        SwingUtilities.invokeLater(new Runnable() {
+                            public void run() {
+                                new PaymentRent(); // Open a new PaymentRent window
+                            }
+                        });
                     }
                 });
 
+               
+                
                 roomBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
                         cardLayout.show(container, roomNumber);
@@ -86,7 +96,8 @@ public class PaymentRent extends JFrame {
                     roomBtn.setEnabled(false);
                     menuPanel.add(roomBtn);
                 }
-                container.revalidate(); // รีเฟรชการแสดงผลของ container
+                        
+                
                  
             }
 
@@ -125,11 +136,11 @@ public class PaymentRent extends JFrame {
     }
     
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new PaymentRent();
-            }
-        });
-    }
+    // public static void main(String[] args) {
+    //     SwingUtilities.invokeLater(new Runnable() {
+    //         public void run() {
+    //             new PaymentRent();
+    //         }
+    //     });
+    // }
 }

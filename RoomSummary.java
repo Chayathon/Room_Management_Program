@@ -55,10 +55,15 @@ public class RoomSummary extends JFrame {
 
         add(panel);
 
+        
+
         setSize(350, 300);
         setLocationRelativeTo(null); // Center the window
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Close the window when closed
         setVisible(true);
+
+
+        setLocation(450, 450);
     }
 
     private String getCurrentDate() {

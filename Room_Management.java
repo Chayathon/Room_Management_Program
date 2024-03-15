@@ -61,9 +61,6 @@ public class Room_Management extends JFrame implements ActionListener {
         ComplaintBtn.addActionListener(this);
         menuPanel.add(ComplaintBtn);
 
- 
-        
-
 
         setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
