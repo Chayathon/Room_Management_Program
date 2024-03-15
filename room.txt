@@ -1,4 +1,4 @@
-R101 Fan 1800 0
+R101 Fan 1800 1
 R102 Fan 1800 0
 R103 Fan 1800 0
 R104 Fan 1800 0
@@ -19,7 +19,7 @@ R208 AirConditioner 2500 0
 R209 AirConditioner 2500 0
 R210 AirConditioner 2500 0
 R301 AirConditioner 2500 0
-R302 AirConditioner 2500 0
+R302 AirConditioner 2500 1
 R303 AirConditioner 2500 0
 R304 AirConditioner 2500 0
 R305 AirConditioner 2500 0
