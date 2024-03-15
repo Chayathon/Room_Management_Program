@@ -12,21 +12,21 @@ public class ComplaintForm extends JFrame {
     public ComplaintForm() {
         setTitle("Complaint Form");
         setSize(400, 300);
-
+ 
         JPanel panel = new JPanel();
-        panel.setLayout(null);
-
+        panel.setLayout(null); 
+        
         JLabel complaintLabel = new JLabel("Complaint:");
-        complaintLabel.setBounds(20, 50, 80, 25);
+        complaintLabel.setBounds(20, 20, 80, 25);
         panel.add(complaintLabel);
 
         complaintArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(complaintArea);
-        scrollPane.setBounds(100, 50, 250, 150);
+        scrollPane.setBounds(100, 25, 250, 180);
         panel.add(scrollPane);
 
         JButton submitButton = new JButton("Submit");
-        submitButton.setBounds(150, 220, 100, 25);
+        submitButton.setBounds(150, 210, 100, 25);
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 submitComplaint();
