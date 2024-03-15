@@ -131,11 +131,11 @@ public class PaymentRent extends JFrame {
         return false; // ยังไม่มีการชำระเงินสำหรับเดือนปัจจุบัน
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new PaymentRent();
-            }
-        });
-    }
+    // public static void main(String[] args) {
+    //     SwingUtilities.invokeLater(new Runnable() {
+    //         public void run() {
+    //             new PaymentRent();
+    //         }
+    //     });
+    // }
 }
