@@ -13,20 +13,20 @@ public class Finance extends JFrame implements ActionListener {
 
 
     public Finance() {
-        super("Report");
+        super("Fiance");
         container = getContentPane();
 
         headerPanel = new JPanel();
         headerPanel.setLayout(new BorderLayout());
         container.add(headerPanel);
 
-        JLabel title = new JLabel("Report");
+        JLabel title = new JLabel("Fiance");
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setFont(new Font("Tahoma", Font.BOLD, 28));
         headerPanel.add(title, BorderLayout.NORTH);
 
         menuPanel = new JPanel();
-        menuPanel.setLayout(new GridLayout(3, 10, 10, 10));
+        menuPanel.setLayout(new GridLayout(4, 10, 10, 10));
         headerPanel.add(menuPanel);
 
         PaymentRentBtn = new JButton("Payment Rent");
@@ -52,7 +52,8 @@ public class Finance extends JFrame implements ActionListener {
         if(event.getSource() == PaymentRentBtn) {
             PaymentRent = new PaymentRent();
         } else if(event.getSource() == HistoryBtn) {
-            History = new History();
+            History gui = new History();
+            gui.setVisible(true);
         }  else if(event.getSource() == CashingBtn) {
             Cashing = new Cashing();
         } 
