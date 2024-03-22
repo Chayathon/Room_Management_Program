@@ -6,34 +6,33 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ckeckOutInfo extends JPanel {
-    JLabel roomNumberLabel, roomTypeLabel, roomPriceLabel, roomStatusLabel, nameLabel, telLabel, addressLabel;
+    JLabel roomNumberLabel, roomTypeLabel, roomPriceLabel, roomStatusLabel, nameLabel, telLabel;
+    JTextField roomNumberField, roomTypeField, roomPriceField, roomStatusField, nameField, telField;
     JButton confirmBtn, cancelBtn;
-    private String roomNumber;
-    private String roomType;
-    private String roomPrice;
-    private String roomStatus;
-    
-    private String firstName;
-    private String lastName;
-    private String tel;
-    private String address;
 
     public ckeckOutInfo(CardLayout cardLayout, Container container, String roomNumber, String roomType, String roomPrice, String roomStatus) {
-        this.roomNumber = roomNumber;
-        this.roomType = roomType;
-        this.roomPrice = roomPrice;
-        this.roomStatus = roomStatus;
-
-        roomNumberLabel = new JLabel("Room No. : " + roomNumber);
+        roomNumberLabel = new JLabel("Room No. : ");
         add(roomNumberLabel);
+        roomNumberField = new JTextField(14);
+        roomNumberField.setText(roomNumber);
+        roomNumberField.setEditable(false);
+        add(roomNumberField);
 
-        roomTypeLabel = new JLabel("Type : " + roomType);
+        roomTypeLabel = new JLabel("Type : ");
         add(roomTypeLabel);
+        roomTypeField = new JTextField(14);
+        roomTypeField.setText(roomType);
+        roomTypeField.setEditable(false);
+        add(roomTypeField);
 
-        roomPriceLabel = new JLabel("Price : " + roomPrice);
+        roomPriceLabel = new JLabel("Price : ");
         add(roomPriceLabel);
+        roomPriceField = new JTextField(14);
+        roomPriceField.setText(roomPrice);
+        roomPriceField.setEditable(false);
+        add(roomPriceField);
 
-        read(roomNumber);
+        readFile(roomNumber);
 
         cancelBtn = new JButton("Cancel");
         cancelBtn.addActionListener(new ActionListener() {
@@ -48,7 +47,7 @@ public class ckeckOutInfo extends JPanel {
             public void actionPerformed(ActionEvent event) {
                 int choice = JOptionPane.showConfirmDialog(null, "Confirm to Check Out " + roomNumber + " ?", "Confirmation", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
-                    update(roomNumber, roomType, roomPrice, roomStatus);
+                    writeToFile(roomNumber, roomType, roomPrice, roomStatus);
                     return;
                 }
             }
@@ -59,8 +58,7 @@ public class ckeckOutInfo extends JPanel {
         setVisible(true);
     }
 
-    public void update(String roomNumber, String roomType, String roomPrice, String roomStatus) {
-        
+    public void writeToFile(String roomNumber, String roomType, String roomPrice, String roomStatus) {
         try {
             String fileEdit = "room.txt";
             String targetText = roomNumber + " " + roomType + " " + roomPrice + " " + roomStatus;
@@ -78,8 +76,6 @@ public class ckeckOutInfo extends JPanel {
                 String price = data[2];
 
                 if (line.contains(targetText)) {
-                    System.out.println("Found : " + targetText);
-
                     Scanner scanner = new Scanner(new File(fileEdit));
                     ArrayList<String> lines = new ArrayList<>();
                     while (scanner.hasNextLine()) {
@@ -94,7 +90,6 @@ public class ckeckOutInfo extends JPanel {
                             break;
                         }
                     }
-                    System.out.println("Line : " + index);
 
                     String[] value = targetText.split(" ");
                     String newData = number + " " + type + " " + price + " " + "0";
@@ -129,7 +124,7 @@ public class ckeckOutInfo extends JPanel {
 
                     Date date = new Date();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                    writer.println(data[0].trim() + " " + data[1].trim() + " " + data[2].trim() + " " + data[3].trim() + " " + data[4].trim() + " " + data[5].trim() + " " + data[6].trim() + " " + dateFormat.format(date));
+                    writer.println(data[0].trim() + " " + data[1].trim() + " " + data[2].trim() + " " + data[3].trim() + " " + data[4].trim() + " " + data[5].trim() + " " + dateFormat.format(date));
                 }
             }
             
@@ -140,7 +135,7 @@ public class ckeckOutInfo extends JPanel {
         }
     }
 
-    public void read(String roomNumber) {
+    public void readFile(String roomNumber) {
         File rentFile = new File("checkin.txt");
         try (Scanner scanner = new Scanner(rentFile)) {
             while (scanner.hasNextLine()) {
@@ -149,15 +144,20 @@ public class ckeckOutInfo extends JPanel {
                     String [] data;
                     data = line.split(" ");
 
-                    if (data.length == 9) {
-                        nameLabel = new JLabel("Name : " + data[3].trim() + " " + data[4].trim());
+                    if (data.length == 8) {
+                        nameLabel = new JLabel("Name : ");
                         add(nameLabel);
+                        nameField = new JTextField(14);
+                        nameField.setText(data[3].trim() + " " + data[4].trim());
+                        nameField.setEditable(false);
+                        add(nameField);
 
-                        telLabel = new JLabel("Tel : " + data[5].trim());
+                        telLabel = new JLabel("Tel : ");
                         add(telLabel);
-
-                        addressLabel = new JLabel("Address : " + data[6].trim());
-                        add(addressLabel);
+                        telField = new JTextField(14);
+                        telField.setText(data[5].trim());
+                        telField.setEditable(false);
+                        add(telField);
                     }
                     else {
                         System.out.println("Warning: Invalid data format in line: " + line);

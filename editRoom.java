@@ -30,6 +30,13 @@ public class editRoom extends JFrame {
         menuPanel.setLayout(new GridLayout(3, 2, 10, 10));
         headerPanel.add(menuPanel);
 
+        readFile();
+        
+        setSize(1700, 400);
+        setVisible(true);
+    }
+
+    public void readFile() {
         try {
             String fileName = "room.txt";
             File file = new File(fileName);
@@ -60,10 +67,5 @@ public class editRoom extends JFrame {
         catch(IOException e) {
             System.out.println("Error while writing file " + e.getMessage());
         }
-        
-        setSize(1700, 400);
-        setVisible(true);
     }
-
-    
 }

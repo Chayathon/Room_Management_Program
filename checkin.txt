@@ -1,8 +1,1 @@
-R101 Fan 1800 Chayathon Termpipatphong 0957079861 253/11 15-03-2567 03:35:00
-R302 AirConditioner 2500 yanisa simma 0000 5645 15-03-2567 20:45:05
-R203 AirConditioner 2500 yanisa simma 0 000 16-03-2567 05:02:10
-R303 AirConditioner 2500 Chayathon Termpiaptphong 0957079861 253/11 22-03-2567 22:30:30
-R201 AirConditioner 2500 Chayathon Termpiaptphong 0957079861 253/11 22-03-2567 22:42:30
-R202 AirConditioner 2500 Chayathon Termpiaptphong 0957079861 253/11 22-03-2567 22:43:44
-R203 AirConditioner 2500 Chayathon Termpiaptpgong 0957079861 253/11 22-03-2567 22:45:19
-R204 AirConditioner 2500 Chayathon Termpipatphong 0957079861 253/11 22-03-2567 22:47:11
+R101 Fan 1800 Chayathon Termpipatphong 0957079861 23-03-2567 00:37:45

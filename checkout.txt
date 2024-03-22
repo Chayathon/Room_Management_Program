@@ -1,5 +1,0 @@
-R303 AirConditioner 2500 Chayathon Termpiaptphong 0957079861 253/11 22-03-2567 22:31:30
-R201 AirConditioner 2500 Chayathon Termpiaptphong 0957079861 253/11 22-03-2567 22:43:30
-R202 AirConditioner 2500 Chayathon Termpiaptphong 0957079861 253/11 22-03-2567 22:44:44
-R203 AirConditioner 2500 Chayathon Termpiaptpgong 0957079861 253/11 22-03-2567 22:46:19
-R204 AirConditioner 2500 Chayathon Termpipatphong 0957079861 253/11 22-03-2567 22:48:16

@@ -13,7 +13,6 @@ public class checkinHistory extends JFrame {
         setTitle("Checkin History");
         setSize(800, 400); // เปลี่ยนขนาดหน้าต่างให้กว้างขึ้นเพื่อรองรับข้อมูลเพิ่มเติม
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
         initializeComponents();
@@ -36,7 +35,6 @@ public class checkinHistory extends JFrame {
         model.addColumn("Firstname");
         model.addColumn("Lastname");
         model.addColumn("Tel");
-        model.addColumn("Address");
         model.addColumn("Date");
         model.addColumn("Time");
 
@@ -50,15 +48,14 @@ public class checkinHistory extends JFrame {
                 String firstName = data[3];
                 String lastName = data[4];
                 String tel = data[5];
-                String address = data[6];
-                String date = data[7];
-                String time = data[8];
+                String date = data[6];
+                String time = data[7];
 
                 // อ่านข้อมูลหมายเลขห้องจากไฟล์ room.txt
                 String roomInfo = readRoomInfo(roomNumber);
                 String[] roomData = roomInfo.split(" ");
 
-                model.addRow(new String[]{roomNumber, roomType, roomPrice, firstName, lastName, tel, address, date, time});
+                model.addRow(new String[]{roomNumber, roomType, roomPrice, firstName, lastName, tel, date, time});
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error reading file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

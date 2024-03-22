@@ -1,6 +1,0 @@
-Room No. : R302
-Type : AirConditioner
-Name : yanisa simma
-Tel : 0000
-Address : 5645
-Rent date : 15-03-2567 20:45:05
