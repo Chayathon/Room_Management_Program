@@ -52,11 +52,12 @@ public class editRoom extends JFrame {
                 
                 roomBtn = new JButton(roomNumber);
                 // ประมวลผลข้อมูลต่อได้
-                container.add(new editRoomInfo(cardLayout, container, roomNumber, roomType, roomPrice,  roomStatus), roomNumber);
                 roomBtn = new JButton(roomNumber + " " + roomType + " " + roomPrice);
+                roomBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 roomBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-                        cardLayout.show(container, roomNumber);
+                        editRoomInfo editRoomInfo = new editRoomInfo(roomNumber, roomType, roomPrice, roomStatus);
+                        dispose();
                     }
                 });
                 menuPanel.add(roomBtn);

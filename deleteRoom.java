@@ -43,11 +43,14 @@ public class deleteRoom extends JFrame {
                 roomBtn = new JButton(roomNumber);
                 // ประมวลผลข้อมูลต่อได้
                 roomBtn = new JButton(roomNumber + " " + roomType + " " + roomPrice + " " + roomStatus);
+                roomBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 roomBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
                         int choice = JOptionPane.showConfirmDialog(null, "Are you sure to delete " + roomNumber + " ?", "Confirmation", JOptionPane.YES_NO_OPTION);
                     if (choice == JOptionPane.YES_OPTION) {
                         deleteRoom(roomNumber, roomType, roomPrice, roomStatus);
+                        dispose();
+                        JOptionPane.showMessageDialog(null, "Room Deleted.", "Successfully", 1);
                         return;
                     }
                     }

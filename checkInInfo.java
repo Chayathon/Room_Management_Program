@@ -5,26 +5,66 @@ import java.io.*;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
-public class checkInInfo extends JPanel {
-    JLabel FnameLabel, LnameLabel, telLabel;
-    JTextField FnameField, LnameField, telField;
+public class checkInInfo extends JFrame {
+    Container container;
+    JPanel headerPanel, menuPanel, buttonPanel;
+    JLabel roomNumberLabel, roomTypeLabel, roomPriceLabel, FnameLabel, LnameLabel, telLabel;
+    JTextField roomNumberField, roomTypeField, roomPriceField, FnameField, LnameField, telField;
     JButton confirmBtn, backBtn;
 
-    public checkInInfo(CardLayout cardLayout, Container container, String roomNumber, String roomType, String roomPrice) {
+    public checkInInfo(String roomNumber, String roomType, String roomPrice) {
+        super("Check In");
+        container = getContentPane();
+
+        headerPanel = new JPanel();
+        headerPanel.setLayout(new BorderLayout());
+        container.add(headerPanel);
+
+        JLabel title = new JLabel("Check In");
+        title.setHorizontalAlignment(JLabel.CENTER);
+        title.setFont(new Font("Tahoma", Font.BOLD, 28));
+        headerPanel.add(title, BorderLayout.NORTH);
+
+        menuPanel = new JPanel();
+        menuPanel.setLayout(new GridLayout(6, 2, 10, 10));
+        menuPanel.setBorder(BorderFactory.createEmptyBorder(20, 60, 20, 60));
+        headerPanel.add(menuPanel);
+        
+        roomNumberLabel = new JLabel("Room No. : ");
+        menuPanel.add(roomNumberLabel);
+        roomNumberField = new JTextField(20);
+        roomNumberField.setText(roomNumber);
+        roomNumberField.setEditable(false);
+        menuPanel.add(roomNumberField);
+        
+        roomTypeLabel = new JLabel("Room Type : ");
+        menuPanel.add(roomTypeLabel);
+        roomTypeField = new JTextField(20);
+        roomTypeField.setText(roomType);
+        roomTypeField.setEditable(false);
+        menuPanel.add(roomTypeField);
+        
+        roomPriceLabel = new JLabel("Room Price : ");
+        menuPanel.add(roomPriceLabel);
+        roomPriceField = new JTextField(20);
+        roomPriceField.setText(roomPrice);
+        roomPriceField.setEditable(false);
+        menuPanel.add(roomPriceField);
+        
         FnameLabel = new JLabel("Firstname : ");
-        add(FnameLabel);
-        FnameField = new JTextField(14);
-        add(FnameField);
+        menuPanel.add(FnameLabel);
+        FnameField = new JTextField(20);
+        menuPanel.add(FnameField);
         
         LnameLabel = new JLabel("Lastname : ");
-        add(LnameLabel);
-        LnameField = new JTextField(14);
-        add(LnameField);
+        menuPanel.add(LnameLabel);
+        LnameField = new JTextField(20);
+        menuPanel.add(LnameField);
         
         telLabel = new JLabel("Tel : ");
-        add(telLabel);
-        telField = new JTextField(14);
-        add(telField);
+        menuPanel.add(telLabel);
+        telField = new JTextField(20);
+        menuPanel.add(telField);
 
         confirmBtn = new JButton("    Confirm    ");
         confirmBtn.addActionListener(new ActionListener() {
@@ -32,19 +72,19 @@ public class checkInInfo extends JPanel {
                 int choice = JOptionPane.showConfirmDialog(null, "Confirm to Check In " + roomNumber + " ?", "Confirmation", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
                     writeToFile(roomNumber, roomType, roomPrice, FnameField.getText(), LnameField.getText(), telField.getText());
+                    dispose();
+                    JOptionPane.showMessageDialog(null, "Check In Successfully!", "Successfully", 1);
                     return;
                 }
             }
         });
-        add(confirmBtn);
+        JPanel buttonPanel = new JPanel();
+        confirmBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        buttonPanel.add(confirmBtn);
+        add(buttonPanel, BorderLayout.SOUTH);
 
-        backBtn = new JButton("    Back    ");
-        backBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                cardLayout.first(container);
-            }
-        });
-        add(backBtn);
+        setSize(500, 400);
+        setVisible(true);
     }
     
     public void writeToFile(String roomNumber, String roomType, String roomPrice, String firstName, String lastName, String tel) {

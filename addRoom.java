@@ -3,12 +3,12 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 
-public class addRoom extends JFrame implements ActionListener {
+public class addRoom extends JFrame {
+    Container container;
+    JPanel headerPanel, menuPanel, buttoPanel;
     JLabel roomNumberLabel, roomTypeLabel, roomPriceLabel;
     JTextField roomNumberField, roomTypeField, roomPriceField;
-    JButton confirmBtn, cancelBtn;
-    Container container;
-    JPanel headerPanel, menuPanel;
+    JButton confirmBtn;
 
     public addRoom() {
         super("Add Room");
@@ -24,72 +24,77 @@ public class addRoom extends JFrame implements ActionListener {
         headerPanel.add(title, BorderLayout.NORTH);
 
         menuPanel = new JPanel();
-        menuPanel.setLayout(new GridLayout(4, 2, 10, 10));
+        menuPanel.setLayout(new GridLayout(3, 2, 10, 10));
+        menuPanel.setBorder(BorderFactory.createEmptyBorder(20, 60, 20, 60));
         headerPanel.add(menuPanel);
 
         roomNumberLabel = new JLabel("Room Number : ");
         menuPanel.add(roomNumberLabel);
-        roomNumberField = new JTextField(14);
+        roomNumberField = new JTextField(20);
         menuPanel.add(roomNumberField);
 
         roomTypeLabel = new JLabel("Room Type : ");
         menuPanel.add(roomTypeLabel);
-        roomTypeField = new JTextField(14);
+        roomTypeField = new JTextField(20);
         menuPanel.add(roomTypeField);
 
-        roomTypeLabel = new JLabel("Room Price : ");
-        menuPanel.add(roomTypeLabel);
-        roomTypeField = new JTextField(14);
-        menuPanel.add(roomTypeField);
-
-        cancelBtn = new JButton("Cancel");
-        cancelBtn.addActionListener(this);
-        menuPanel.add(cancelBtn);
+        roomPriceLabel = new JLabel("Room Price : ");
+        menuPanel.add(roomPriceLabel);
+        roomPriceField = new JTextField(20);
+        menuPanel.add(roomPriceField);
 
         confirmBtn = new JButton("Add");
-        confirmBtn.addActionListener(this);
-        menuPanel.add(confirmBtn);
+        confirmBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        confirmBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                writeToFile(roomNumberField.getText(), roomTypeField.getText(), roomPriceField.getText());
+                dispose();
+            }
+        });
 
-        setSize(600, 600);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(confirmBtn);
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        setSize(500, 300);
         setVisible(true);
     }
 
-    public void write(String roomNumber, String roomType, String roomPrice) {
+    public void writeToFile(String roomNumber, String roomType, String roomPrice) {
         File fileName = new File("room.txt");
 
         if (fileName.exists()) {
-            int choice = JOptionPane.showConfirmDialog(null,
-                    "Are you sure to Add room " + roomNumberField.getText() + " ?", "Confirmation",
+            int choice = JOptionPane.showConfirmDialog(null, "Are you sure to Add room " + roomNumber + " ?", "Confirmation",
                     JOptionPane.YES_NO_OPTION);
-            if (choice != JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(null, "Room not saved.");
+            if (choice == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(null, "Room Added.");
+
+                try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
+                    writer.println("R" + roomNumber + " " + roomType + " " + roomPrice + " " + "0");
+                }
+                catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Error saving Room: " + e.getMessage());
+                }
                 return;
             }
         }
 
-        try {
-            writeToFile(roomNumber, roomType, roomPrice, fileName);
-            JOptionPane.showMessageDialog(null, "Room saved successfully!");
-        }
-        catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error saving Room: " + e.getMessage());
-        }
+        // try {
+        //     writeToFile(roomNumber, roomType, roomPrice, fileName);
+        //     JOptionPane.showMessageDialog(null, "Room saved successfully!");
+        // }
+        // catch (IOException e) {
+        //     JOptionPane.showMessageDialog(null, "Error saving Room: " + e.getMessage());
+        // }
     }
 
-    private static void writeToFile(String roomNumber, String roomType, String roomPrice, File equipmentFile) throws IOException {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(equipmentFile, true))) {
-            writer.println("R" + roomNumber + " " + roomType + " " + roomPrice + " " + "0");
-        }
-    }
+    // private static void writeToFile(String roomNumber, String roomType, String roomPrice, File equipmentFile) {
+    //     try (PrintWriter writer = new PrintWriter(new FileWriter(equipmentFile, true))) {
+    //         writer.println("R" + roomNumber + " " + roomType + " " + roomPrice + " " + "0");
+    //     }
+    //     catch (IOException e) {
+    //         JOptionPane.showMessageDialog(null, "Error saving Room: " + e.getMessage());
+    //     }
+    // }
 
-    @Override
-    public void actionPerformed(ActionEvent event) {
-        if(event.getSource() == cancelBtn) {
-            dispose();
-        }
-        else if(event.getSource() == confirmBtn) {
-            write(roomNumberField.getText(), roomTypeField.getText(), roomPriceField.getText());
-        }
-    }
-    
 }

@@ -51,7 +51,7 @@ public class PaymentRent extends JFrame {
                 boolean canEnableButton = checkPaymentHistory(roomNumber);
 
                 roomBtn = new JButton(roomNumber);
-
+                roomBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 roomBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
                         String electricityCost = JOptionPane.showInputDialog("Enter electricity unit:");

@@ -30,7 +30,7 @@ public class checkIn extends JFrame {
         menuPanel.setLayout(new GridLayout(3, 10, 10, 10));
         headerPanel.add(menuPanel);
 
-         readFile();
+        readFile();
         
         setSize(1700, 400);
         setVisible(true);
@@ -53,10 +53,11 @@ public class checkIn extends JFrame {
                 roomBtn = new JButton(roomNumber);
                 // ประมวลผลข้อมูลต่อได้
                 roomBtn = new JButton(roomNumber + " " + roomType + " " + roomPrice);
+                roomBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 roomBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-                        container.add(new checkInInfo(cardLayout, container, roomNumber, roomType, roomPrice), roomNumber);
-                        cardLayout.show(container, roomNumber);
+                        checkInInfo checkInInfo = new checkInInfo(roomNumber, roomType, roomPrice);
+                        dispose();
                     }
                 });
     

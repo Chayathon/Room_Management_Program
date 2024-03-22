@@ -5,42 +5,53 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class ckeckOutInfo extends JPanel {
+public class checkOutInfo extends JFrame {
+    Container container;
+    JPanel headerPanel, menuPanel, buttoPanel;
     JLabel roomNumberLabel, roomTypeLabel, roomPriceLabel, roomStatusLabel, nameLabel, telLabel;
     JTextField roomNumberField, roomTypeField, roomPriceField, roomStatusField, nameField, telField;
     JButton confirmBtn, cancelBtn;
 
-    public ckeckOutInfo(CardLayout cardLayout, Container container, String roomNumber, String roomType, String roomPrice, String roomStatus) {
+    public checkOutInfo(String roomNumber, String roomType, String roomPrice, String roomStatus) {
+        super("Check Out");
+        container = getContentPane();
+
+        headerPanel = new JPanel();
+        headerPanel.setLayout(new BorderLayout());
+        container.add(headerPanel);
+
+        JLabel title = new JLabel("Check Out");
+        title.setHorizontalAlignment(JLabel.CENTER);
+        title.setFont(new Font("Tahoma", Font.BOLD, 28));
+        headerPanel.add(title, BorderLayout.NORTH);
+
+        menuPanel = new JPanel();
+        menuPanel.setLayout(new GridLayout(5, 2, 10, 10));
+        menuPanel.setBorder(BorderFactory.createEmptyBorder(20, 60, 20, 60));
+        headerPanel.add(menuPanel);
+
         roomNumberLabel = new JLabel("Room No. : ");
-        add(roomNumberLabel);
-        roomNumberField = new JTextField(14);
+        menuPanel.add(roomNumberLabel);
+        roomNumberField = new JTextField(20);
         roomNumberField.setText(roomNumber);
         roomNumberField.setEditable(false);
-        add(roomNumberField);
+        menuPanel.add(roomNumberField);
 
-        roomTypeLabel = new JLabel("Type : ");
-        add(roomTypeLabel);
-        roomTypeField = new JTextField(14);
+        roomTypeLabel = new JLabel("Room Type : ");
+        menuPanel.add(roomTypeLabel);
+        roomTypeField = new JTextField(20);
         roomTypeField.setText(roomType);
         roomTypeField.setEditable(false);
-        add(roomTypeField);
+        menuPanel.add(roomTypeField);
 
-        roomPriceLabel = new JLabel("Price : ");
-        add(roomPriceLabel);
-        roomPriceField = new JTextField(14);
+        roomPriceLabel = new JLabel("Room Price : ");
+        menuPanel.add(roomPriceLabel);
+        roomPriceField = new JTextField(20);
         roomPriceField.setText(roomPrice);
         roomPriceField.setEditable(false);
-        add(roomPriceField);
+        menuPanel.add(roomPriceField);
 
         readFile(roomNumber);
-
-        cancelBtn = new JButton("Cancel");
-        cancelBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                cardLayout.first(container);
-            } 
-        });
-        add(cancelBtn);
 
         confirmBtn = new JButton("Confirm");
         confirmBtn.addActionListener(new ActionListener() {
@@ -48,13 +59,18 @@ public class ckeckOutInfo extends JPanel {
                 int choice = JOptionPane.showConfirmDialog(null, "Confirm to Check Out " + roomNumber + " ?", "Confirmation", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
                     writeToFile(roomNumber, roomType, roomPrice, roomStatus);
+                    dispose();
+                    JOptionPane.showMessageDialog(null, "Check Out Successfully!", "Successfully", 1);
                     return;
                 }
             }
         });
-        add(confirmBtn);
+        JPanel buttonPanel = new JPanel();
+        confirmBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        buttonPanel.add(confirmBtn);
+        add(buttonPanel, BorderLayout.SOUTH);
 
-        setSize(600, 600);
+        setSize(500, 400);
         setVisible(true);
     }
 
@@ -146,18 +162,18 @@ public class ckeckOutInfo extends JPanel {
 
                     if (data.length == 8) {
                         nameLabel = new JLabel("Name : ");
-                        add(nameLabel);
+                        menuPanel.add(nameLabel);
                         nameField = new JTextField(14);
                         nameField.setText(data[3].trim() + " " + data[4].trim());
                         nameField.setEditable(false);
-                        add(nameField);
+                        menuPanel.add(nameField);
 
                         telLabel = new JLabel("Tel : ");
-                        add(telLabel);
+                        menuPanel.add(telLabel);
                         telField = new JTextField(14);
                         telField.setText(data[5].trim());
                         telField.setEditable(false);
-                        add(telField);
+                        menuPanel.add(telField);
                     }
                     else {
                         System.out.println("Warning: Invalid data format in line: " + line);

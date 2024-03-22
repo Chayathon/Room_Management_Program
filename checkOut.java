@@ -54,10 +54,11 @@ public class checkOut extends JFrame {
                 // ประมวลผลข้อมูลต่อได้
                 
                 roomBtn = new JButton(roomNumber + " " + roomType + " " + roomPrice);
+                roomBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 roomBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-                        container.add(new ckeckOutInfo(cardLayout, container, roomNumber, roomType, roomPrice, roomStatus), roomNumber);
-                        cardLayout.show(container, roomNumber);
+                        checkOutInfo checkOutInfo = new checkOutInfo(roomNumber, roomType, roomPrice, roomStatus);
+                        dispose();
                     }
                 });
     
