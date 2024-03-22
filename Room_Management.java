@@ -1,20 +1,20 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
-
 import javax.swing.*;
 
 public class Room_Management extends JFrame implements ActionListener {
     JPanel headerPanel, menuPanel;
     Container container;
-    JButton rentRoomBtn, returnRoomBtn, addRoomBtn, editRoomBtn, deleteRoomBtn, ComplaintBtn, ReportBtn, FinanceBtn;
-    rent_room rent_room;
-    return_room return_room;
-    add_room add_room;
-    edit_room edit_room;
-    delete_room delete_room;
+    JButton rentRoomBtn, returnRoomBtn, addRoomBtn, editRoomBtn, deleteRoomBtn, ComplaintBtn, ReportBtn, FinanceBtn, checkinHistoryBtn, checkoutHistoryBtn;
+    checkIn checkIn;
+    checkOut checkOut;
+    addRoom addRoom;
+    editRoom editRoom;
+    deleteRoom deleteRoom;
     Complaint Complaint; //ร้องเรียน
     Finance Finance; // การเงิน
+    checkinHistory checkinHistory; // ประวัติการเช่า
+    checkoutHistory checkoutHistory; // ประวัติการคืน
 
     public Room_Management() {
         super("Room Management Program");
@@ -61,6 +61,14 @@ public class Room_Management extends JFrame implements ActionListener {
         ComplaintBtn.addActionListener(this);
         menuPanel.add(ComplaintBtn);
 
+        checkinHistoryBtn = new JButton("Checkin History");
+        checkinHistoryBtn.addActionListener(this);
+        menuPanel.add(checkinHistoryBtn);
+
+        checkoutHistoryBtn = new JButton("Checkout History");
+        checkoutHistoryBtn.addActionListener(this);
+        menuPanel.add(checkoutHistoryBtn);
+
 
         setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,25 +82,31 @@ public class Room_Management extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         if(event.getSource() == rentRoomBtn) {
-            rent_room = new rent_room();
+            checkIn = new checkIn();
         }
         else if(event.getSource() == returnRoomBtn) {
-            return_room = new return_room();
+            checkOut = new checkOut();
         }
         else if(event.getSource() == addRoomBtn) {
-            add_room = new add_room();
+            addRoom = new addRoom();
         }
         else if(event.getSource() == editRoomBtn) {
-            edit_room = new edit_room();
+            editRoom = new editRoom();
         }
         else if(event.getSource() == deleteRoomBtn) {
-            delete_room = new delete_room();
+            deleteRoom = new deleteRoom();
         }
         else if(event.getSource() == ComplaintBtn) {
             Complaint = new Complaint();
         }
         else if(event.getSource() == FinanceBtn){
             Finance = new Finance();
+        }
+        else if(event.getSource() == checkinHistoryBtn){
+            checkinHistory = new checkinHistory();
+        }
+        else if(event.getSource() == checkoutHistoryBtn){
+            checkoutHistory = new checkoutHistory();
         }
     }
 }

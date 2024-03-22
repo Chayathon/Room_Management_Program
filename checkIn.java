@@ -3,13 +3,13 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 
-public class rent_room extends JFrame {
+public class checkIn extends JFrame {
     JPanel headerPanel, menuPanel;
     Container container;
     JButton roomBtn;
     CardLayout cardLayout;
 
-    public rent_room() {
+    public checkIn() {
         super("Check In");
         container = getContentPane();
         
@@ -30,6 +30,13 @@ public class rent_room extends JFrame {
         menuPanel.setLayout(new GridLayout(3, 10, 10, 10));
         headerPanel.add(menuPanel);
 
+         readFile();
+        
+        setSize(1700, 400);
+        setVisible(true);
+    }
+
+    public void readFile() {
         try {
             String fileName = "room.txt";
             File file = new File(fileName);
@@ -45,10 +52,10 @@ public class rent_room extends JFrame {
                 
                 roomBtn = new JButton(roomNumber);
                 // ประมวลผลข้อมูลต่อได้
-                container.add(new rent_room_info(cardLayout, container, roomNumber, roomType, roomPrice), roomNumber);
                 roomBtn = new JButton(roomNumber + " " + roomType + " " + roomPrice);
                 roomBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
+                        container.add(new checkInInfo(cardLayout, container, roomNumber, roomType, roomPrice), roomNumber);
                         cardLayout.show(container, roomNumber);
                     }
                 });
@@ -67,8 +74,5 @@ public class rent_room extends JFrame {
         catch(IOException e) {
             System.out.println("Error while writing file " + e.getMessage());
         }
-        
-        setSize(1700, 400);
-        setVisible(true);
     }
 }

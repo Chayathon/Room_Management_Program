@@ -5,12 +5,12 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class delete_room extends JFrame {
+public class deleteRoom extends JFrame {
     JPanel headerPanel, menuPanel;
     Container container;
     JButton roomBtn;
 
-    public delete_room() {
+    public deleteRoom() {
         super("Delete Room");
         container = getContentPane();
 

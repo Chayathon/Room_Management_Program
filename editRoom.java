@@ -3,13 +3,13 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 
-public class edit_room extends JFrame {
+public class editRoom extends JFrame {
     JPanel headerPanel, menuPanel;
     Container container;
     CardLayout cardLayout;
     JButton roomBtn;
 
-    public edit_room() {
+    public editRoom() {
         super("Edit Room");
         container = getContentPane();
 
@@ -45,7 +45,7 @@ public class edit_room extends JFrame {
                 
                 roomBtn = new JButton(roomNumber);
                 // ประมวลผลข้อมูลต่อได้
-                container.add(new edit_room_info(cardLayout, container, roomNumber, roomType, roomPrice,  roomStatus), roomNumber);
+                container.add(new editRoomInfo(cardLayout, container, roomNumber, roomType, roomPrice,  roomStatus), roomNumber);
                 roomBtn = new JButton(roomNumber + " " + roomType + " " + roomPrice);
                 roomBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {

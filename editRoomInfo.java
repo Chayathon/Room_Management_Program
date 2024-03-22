@@ -5,7 +5,7 @@ import java.io.*;
 import java.util.*;
 
 
-public class edit_room_info extends JPanel implements ActionListener {
+public class editRoomInfo extends JPanel implements ActionListener {
     JLabel roomNumberLabel, roomTypeLabel, roomPriceLabel, roomStatusLabel;
     JTextField roomNumberField, roomTypeField, roomPriceField, roomStatusField;
     JTextArea addressField;
@@ -15,7 +15,7 @@ public class edit_room_info extends JPanel implements ActionListener {
     private String roomPrice;
     private String roomStatus;
 
-    public edit_room_info(CardLayout cardLayout, Container container, String roomNumber, String roomType, String roomPrice, String roomStatus) {
+    public editRoomInfo(CardLayout cardLayout, Container container, String roomNumber, String roomType, String roomPrice, String roomStatus) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.roomPrice = roomPrice;

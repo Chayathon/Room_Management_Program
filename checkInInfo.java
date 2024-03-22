@@ -5,20 +5,13 @@ import java.io.*;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
-public class rent_room_info extends JPanel {
+public class checkInInfo extends JPanel {
     JLabel FnameLabel, LnameLabel, telLabel, addressLabel;
     JTextField FnameField, LnameField, telField;
     JTextArea addressField;
     JButton confirmBtn, backBtn;
-    private String roomNumber;
-    private String roomType;
-    private String roomPrice;
 
-    public rent_room_info(CardLayout cardLayout, Container container, String roomNumber, String roomType, String roomPrice) {
-        this.roomNumber = roomNumber;
-        this.roomType = roomType;
-        this.roomPrice = roomPrice;
-
+    public checkInInfo(CardLayout cardLayout, Container container, String roomNumber, String roomType, String roomPrice) {
         FnameLabel = new JLabel("Firstname : ");
         add(FnameLabel);
         FnameField = new JTextField(14);
@@ -117,7 +110,7 @@ public class rent_room_info extends JPanel {
                     System.out.println("Error while writing file " + e.getMessage());
                 }
 
-                try (PrintWriter writer = new PrintWriter(new FileWriter("rent.txt", true))) {
+                try (PrintWriter writer = new PrintWriter(new FileWriter("checkin.txt", true))) {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                     writer.println(roomNumber + " " + roomType + " " + roomPrice + " " + FnameField.getText() + " " + LnameField.getText() + " " + telField.getText() + " " + addressField.getText() + " " + dateFormat.format(date));
                 }
@@ -138,7 +131,7 @@ public class rent_room_info extends JPanel {
     }
 
     public void write(String roomNumber, String roomType, String roomPrice) {
-        File fileName = new File("rent.txt");
+        File fileName = new File("checkin.txt");
 
         if (fileName.exists()) {
             int choice = JOptionPane.showConfirmDialog(null,
@@ -149,23 +142,5 @@ public class rent_room_info extends JPanel {
                 return;
             }
         }
-
-        try {
-            writeToFile(roomNumber, roomType, roomPrice, fileName);
-            JOptionPane.showMessageDialog(null, "Rent info saved successfully!");
-        }
-        catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error saving Rent info: " + e.getMessage());
-        }
-    }
-
-    private static void writeToFile(String roomNumber, String roomType, String roomPrice, File equipmentFile) throws IOException {
-        // try (PrintWriter writer = new PrintWriter(new FileWriter("rent.txt", true))) {
-        //     writer.println("Room No. : " + roomNumber + "\n" +
-        //                     "Room Type : " + roomType + "\n" +
-        //                     "Room Price : " + roomPrice + "\n" +
-        //                     "Name : " + FnameField.getText() + " " + LnameField.getText()
-        //                     );
-        // }
     }
 }

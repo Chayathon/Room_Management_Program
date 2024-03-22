@@ -2,17 +2,23 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class return_room_info extends JPanel {
+public class ckeckOutInfo extends JPanel {
     JLabel roomNumberLabel, roomTypeLabel, roomPriceLabel, roomStatusLabel, nameLabel, telLabel, addressLabel;
     JButton confirmBtn, cancelBtn;
     private String roomNumber;
     private String roomType;
     private String roomPrice;
     private String roomStatus;
+    
+    private String firstName;
+    private String lastName;
+    private String tel;
+    private String address;
 
-    public return_room_info(CardLayout cardLayout, Container container, String roomNumber, String roomType, String roomPrice, String roomStatus) {
+    public ckeckOutInfo(CardLayout cardLayout, Container container, String roomNumber, String roomType, String roomPrice, String roomStatus) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.roomPrice = roomPrice;
@@ -27,34 +33,7 @@ public class return_room_info extends JPanel {
         roomPriceLabel = new JLabel("Price : " + roomPrice);
         add(roomPriceLabel);
 
-        try {
-            String fileName = "rent.txt";
-            File file = new File(fileName);
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] data = line.split(" ");
-                String firstName = data[3];
-                String lastName = data[4];
-                String tel = data[5];
-                String address = data[6];
-                
-                nameLabel = new JLabel("Name : " + firstName + " " + lastName);
-                add(nameLabel);
-
-                telLabel = new JLabel("Tel : " + tel);
-                add(telLabel);
-
-                addressLabel = new JLabel("Address : " + address);
-                add(addressLabel);
-            }
-    
-            reader.close();
-        }
-        catch(IOException e) {
-            System.out.println("Error while writing file " + e.getMessage());
-        }
+        read(roomNumber);
 
         cancelBtn = new JButton("Cancel");
         cancelBtn.addActionListener(new ActionListener() {
@@ -81,6 +60,7 @@ public class return_room_info extends JPanel {
     }
 
     public void update(String roomNumber, String roomType, String roomPrice, String roomStatus) {
+        
         try {
             String fileEdit = "room.txt";
             String targetText = roomNumber + " " + roomType + " " + roomPrice + " " + roomStatus;
@@ -136,6 +116,57 @@ public class return_room_info extends JPanel {
         }
         catch (IOException e) {
             System.out.println("Error while writing file " + e.getMessage());
+        }
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter("checkout.txt", true))) {
+            File rentFile = new File("checkin.txt");
+            Scanner scanner = new Scanner(rentFile);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.toLowerCase().contains(roomNumber.toLowerCase())) { 
+                    String [] data;
+                    data = line.split(" ");
+
+                    Date date = new Date();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                    writer.println(data[0].trim() + " " + data[1].trim() + " " + data[2].trim() + " " + data[3].trim() + " " + data[4].trim() + " " + data[5].trim() + " " + data[6].trim() + " " + dateFormat.format(date));
+                }
+            }
+            
+            
+        }
+        catch (IOException e) {
+            System.out.println("Error while writing file " + e.getMessage());
+        }
+    }
+
+    public void read(String roomNumber) {
+        File rentFile = new File("checkin.txt");
+        try (Scanner scanner = new Scanner(rentFile)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.toLowerCase().contains(roomNumber.toLowerCase())) { 
+                    String [] data;
+                    data = line.split(" ");
+
+                    if (data.length == 9) {
+                        nameLabel = new JLabel("Name : " + data[3].trim() + " " + data[4].trim());
+                        add(nameLabel);
+
+                        telLabel = new JLabel("Tel : " + data[5].trim());
+                        add(telLabel);
+
+                        addressLabel = new JLabel("Address : " + data[6].trim());
+                        add(addressLabel);
+                    }
+                    else {
+                        System.out.println("Warning: Invalid data format in line: " + line);
+                    }
+                }
+            }
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("Error: File not found: " + rentFile.getName());
         }
     }
 }

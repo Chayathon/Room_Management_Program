@@ -3,14 +3,14 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 
-public class add_room extends JFrame implements ActionListener {
+public class addRoom extends JFrame implements ActionListener {
     JLabel roomNumberLabel, roomTypeLabel, roomPriceLabel;
     JTextField roomNumberField, roomTypeField, roomPriceField;
     JButton confirmBtn, cancelBtn;
     Container container;
     JPanel headerPanel, menuPanel;
 
-    public add_room() {
+    public addRoom() {
         super("Add Room");
         container = getContentPane();
 
@@ -24,7 +24,7 @@ public class add_room extends JFrame implements ActionListener {
         headerPanel.add(title, BorderLayout.NORTH);
 
         menuPanel = new JPanel();
-        menuPanel.setLayout(new GridLayout(3, 2, 10, 10));
+        menuPanel.setLayout(new GridLayout(4, 2, 10, 10));
         headerPanel.add(menuPanel);
 
         roomNumberLabel = new JLabel("Room Number : ");
@@ -78,7 +78,7 @@ public class add_room extends JFrame implements ActionListener {
 
     private static void writeToFile(String roomNumber, String roomType, String roomPrice, File equipmentFile) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(equipmentFile, true))) {
-            writer.println(roomNumber + " " + roomType + " " + roomPrice + " " + "0");
+            writer.println("R" + roomNumber + " " + roomType + " " + roomPrice + " " + "0");
         }
     }
 
