@@ -5,7 +5,7 @@ import javax.swing.*;
 public class Room_Management extends JFrame implements ActionListener {
     Container container;
     JPanel headerPanel, menuPanel;
-    JButton checkInBtn, checkOutBtn, addRoomBtn, editRoomBtn, deleteRoomBtn, ComplaintBtn, ReportBtn, FinanceBtn, checkinHistoryBtn, checkoutHistoryBtn;
+    JButton checkInBtn, checkOutBtn, addRoomBtn, editRoomBtn, deleteRoomBtn, ComplaintBtn, ReportBtn, FinanceBtn, checkincheckoutHistoryBtn;
     checkIn checkIn;
     checkOut checkOut;
     addRoom addRoom;
@@ -13,8 +13,7 @@ public class Room_Management extends JFrame implements ActionListener {
     deleteRoom deleteRoom;
     Complaint Complaint; //ร้องเรียน
     Finance Finance; // การเงิน
-    checkinHistory checkinHistory; // ประวัติการเช่า
-    checkoutHistory checkoutHistory; // ประวัติการคืน
+    checkincheckoutHistory checkincheckoutHistory; // ประวัติการเช่า การคืน
 
     public Room_Management() {
         super("Room Management Program");
@@ -70,17 +69,11 @@ public class Room_Management extends JFrame implements ActionListener {
         deleteRoomBtn.addActionListener(this);
         menuPanel.add(deleteRoomBtn);
 
-        checkinHistoryBtn = new JButton("Checkin History");
-        checkinHistoryBtn.setFont(new Font("Tahoma", Font.BOLD, 16));
-        checkinHistoryBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        checkinHistoryBtn.addActionListener(this);
-        menuPanel.add(checkinHistoryBtn);
-
-        checkoutHistoryBtn = new JButton("Checkout History");
-        checkoutHistoryBtn.setFont(new Font("Tahoma", Font.BOLD, 16));
-        checkoutHistoryBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        checkoutHistoryBtn.addActionListener(this);
-        menuPanel.add(checkoutHistoryBtn);
+        checkincheckoutHistoryBtn = new JButton("Rental History");
+        checkincheckoutHistoryBtn.setFont(new Font("Tahoma", Font.BOLD, 16));
+        checkincheckoutHistoryBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        checkincheckoutHistoryBtn.addActionListener(this);
+        menuPanel.add(checkincheckoutHistoryBtn);
 
         ComplaintBtn = new JButton("Complaint");
         ComplaintBtn.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -117,11 +110,8 @@ public class Room_Management extends JFrame implements ActionListener {
         else if(event.getSource() == deleteRoomBtn) {
             deleteRoom = new deleteRoom();
         }
-        else if(event.getSource() == checkinHistoryBtn){
-            checkinHistory = new checkinHistory();
-        }
-        else if(event.getSource() == checkoutHistoryBtn){
-            checkoutHistory = new checkoutHistory();
+        else if(event.getSource() == checkincheckoutHistoryBtn){
+            checkincheckoutHistory = new checkincheckoutHistory();
         }
         else if(event.getSource() == ComplaintBtn) {
             Complaint = new Complaint();

@@ -8,8 +8,8 @@ import java.util.*;
 public class checkOutInfo extends JFrame {
     Container container;
     JPanel headerPanel, menuPanel, buttoPanel;
-    JLabel roomNumberLabel, roomTypeLabel, roomPriceLabel, roomStatusLabel, nameLabel, telLabel;
-    JTextField roomNumberField, roomTypeField, roomPriceField, roomStatusField, nameField, telField;
+    JLabel roomNumberLabel, roomTypeLabel, roomPriceLabel, roomStatusLabel, firstNameLabel, lastNameLabel, telLabel;
+    JTextField roomNumberField, roomTypeField, roomPriceField, roomStatusField, firstNameField, lastNameField, telField, checkinDate;
     JButton confirmBtn, cancelBtn;
 
     public checkOutInfo(String roomNumber, String roomType, String roomPrice, String roomStatus) {
@@ -26,7 +26,7 @@ public class checkOutInfo extends JFrame {
         headerPanel.add(title, BorderLayout.NORTH);
 
         menuPanel = new JPanel();
-        menuPanel.setLayout(new GridLayout(5, 2, 10, 10));
+        menuPanel.setLayout(new GridLayout(6, 2, 10, 10));
         menuPanel.setBorder(BorderFactory.createEmptyBorder(20, 60, 20, 60));
         headerPanel.add(menuPanel);
 
@@ -77,7 +77,7 @@ public class checkOutInfo extends JFrame {
     public void writeToFile(String roomNumber, String roomType, String roomPrice, String roomStatus) {
         try {
             String fileEdit = "room.txt";
-            String targetText = roomNumber + " " + roomType + " " + roomPrice + " " + roomStatus;
+            String targetText = roomNumber + " " + roomType + " " + roomPrice + " " + roomStatus + " " + "1";
 
             // อ่านไฟล์ทีละบรรทัด
             BufferedReader reader = new BufferedReader(new FileReader(fileEdit));
@@ -108,7 +108,7 @@ public class checkOutInfo extends JFrame {
                     }
 
                     String[] value = targetText.split(" ");
-                    String newData = number + " " + type + " " + price + " " + "0";
+                    String newData = number + " " + type + " " + price + " " + "0" + " " + "1";
 
                     if(index != -1) {
                         lines.set(index, newData);
@@ -129,20 +129,58 @@ public class checkOutInfo extends JFrame {
             System.out.println("Error while writing file " + e.getMessage());
         }
 
-        try (PrintWriter writer = new PrintWriter(new FileWriter("checkout.txt", true))) {
-            File fileName = new File("checkin.txt");
-            Scanner scanner = new Scanner(fileName);
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                if (line.toLowerCase().contains(roomNumber.toLowerCase())) { 
-                    String []data;
-                    data = line.split(" ");
+        try {
+            String fileEdit2 = "checkin_checkout.txt";
+            String targetText = roomNumber + " " + roomType + " " + roomPrice + " " + firstNameField.getText() + " " + lastNameField.getText() + " " + telField.getText() + " " + checkinDate.getText() + " " + "-";
+
+            // อ่านไฟล์ทีละบรรทัด
+            BufferedReader reader = new BufferedReader(new FileReader(fileEdit2));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                // ตรวจสอบว่าบรรทัดตรงกับข้อความที่ต้องการหรือไม่
+                
+                String[] data = line.split(" ");
+                String number = data[0];
+                String type = data[1];
+                String price = data[2];
+
+                if (line.contains(targetText)) {
+                    Scanner scanner = new Scanner(new File(fileEdit2));
+                    ArrayList<String> lines = new ArrayList<>();
+                    while (scanner.hasNextLine()) {
+                        lines.add(scanner.nextLine());
+                    }
+                    scanner.close();
+
+                    int index = -1;
+                    for (int i = 0; i < lines.size(); i++) {
+                        if (lines.get(i).equals(targetText)) {
+                            index = i;
+                            break;
+                        }
+                    }
 
                     Date date = new Date();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                    writer.println(data[0].trim() + " " + data[1].trim() + " " + data[2].trim() + " " + data[3].trim() + " " + data[4].trim() + " " + data[5].trim() + " " + dateFormat.format(date));
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+                    String[] value = targetText.split(" ");
+                    String newData = roomNumber + " " + roomType + " " + roomPrice + " " + firstNameField.getText() + " " + lastNameField.getText() + " " + telField.getText() + " " + checkinDate.getText() + " " + dateFormat.format(date);
+
+                    if(index != -1) {
+                        lines.set(index, newData);
+                    }
+
+                    PrintWriter edit = new PrintWriter(new File(fileEdit2));
+                    for (String line1 : lines) {
+                        edit.println(line1);
+                    }
+                    edit.close();
+                    break;
                 }
             }
+
+            reader.close();
         }
         catch (IOException e) {
             System.out.println("Error while writing file " + e.getMessage());
@@ -150,7 +188,7 @@ public class checkOutInfo extends JFrame {
     }
 
     public void readFile(String roomNumber) {
-        File fileName = new File("checkin.txt");
+        File fileName = new File("checkin_checkout.txt");
         try (Scanner scanner = new Scanner(fileName)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -159,19 +197,29 @@ public class checkOutInfo extends JFrame {
                     data = line.split(" ");
 
                     if (data.length == 8) {
-                        nameLabel = new JLabel("Name : ");
-                        menuPanel.add(nameLabel);
-                        nameField = new JTextField(14);
-                        nameField.setText(data[3].trim() + " " + data[4].trim());
-                        nameField.setEditable(false);
-                        menuPanel.add(nameField);
+                        firstNameLabel = new JLabel("Firstname : ");
+                        menuPanel.add(firstNameLabel);
+                        firstNameField = new JTextField(20);
+                        firstNameField.setText(data[3].trim());
+                        firstNameField.setEditable(false);
+                        menuPanel.add(firstNameField);
+
+                        lastNameLabel = new JLabel("Lastname : ");
+                        menuPanel.add(lastNameLabel);
+                        lastNameField = new JTextField(20);
+                        lastNameField.setText(data[4].trim());
+                        lastNameField.setEditable(false);
+                        menuPanel.add(lastNameField);
 
                         telLabel = new JLabel("Tel : ");
                         menuPanel.add(telLabel);
-                        telField = new JTextField(14);
+                        telField = new JTextField(20);
                         telField.setText(data[5].trim());
                         telField.setEditable(false);
                         menuPanel.add(telField);
+
+                        checkinDate = new JTextField();
+                        checkinDate.setText(data[6].trim());
                     }
                     else {
                         System.out.println("Warning: Invalid data format in line: " + line);

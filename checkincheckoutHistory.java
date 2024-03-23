@@ -4,19 +4,19 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.*;
 
-public class checkoutHistory extends JFrame {
+public class checkincheckoutHistory extends JFrame {
 
     private JTable table;
     private JScrollPane scrollPane;
 
-    public checkoutHistory() {
-        setTitle("Checkin History");
+    public checkincheckoutHistory() {
+        setTitle("Checkin Checkout History");
         setSize(800, 400); // เปลี่ยนขนาดหน้าต่างให้กว้างขึ้นเพื่อรองรับข้อมูลเพิ่มเติม
         setLocationRelativeTo(null);
         setVisible(true);
 
         initializeComponents();
-        loadPaymentHistory("checkout.txt");
+        loadPaymentHistory("checkin_checkout.txt");
     }
 
     // กำหนดคอมโพเนนต์ต่าง ๆ ในหน้าต่าง
@@ -26,7 +26,7 @@ public class checkoutHistory extends JFrame {
         add(scrollPane);
     }
 
-    // โหลดข้อมูลประวัติการชำระเงินจากไฟล์
+    // โหลดข้อมูลประวัติการเช่าจากไฟล์
     private void loadPaymentHistory(String fileName) {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Room Number");
@@ -35,8 +35,8 @@ public class checkoutHistory extends JFrame {
         model.addColumn("Firstname");
         model.addColumn("Lastname");
         model.addColumn("Tel");
-        model.addColumn("Date");
-        model.addColumn("Time");
+        model.addColumn("Check in Date");
+        model.addColumn("Check out Date");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -48,14 +48,14 @@ public class checkoutHistory extends JFrame {
                 String firstName = data[3];
                 String lastName = data[4];
                 String tel = data[5];
-                String date = data[6];
-                String time = data[7];
+                String checkinDate = data[6];
+                String checkoutDate = data[7];
 
                 // อ่านข้อมูลหมายเลขห้องจากไฟล์ room.txt
                 String roomInfo = readRoomInfo(roomNumber);
                 String[] roomData = roomInfo.split(" ");
 
-                model.addRow(new String[]{roomNumber, roomType, roomPrice, firstName, lastName, tel, date, time});
+                model.addRow(new String[]{roomNumber, roomType, roomPrice, firstName, lastName, tel, checkinDate, checkoutDate});
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error reading file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

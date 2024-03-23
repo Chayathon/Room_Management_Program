@@ -98,12 +98,12 @@ public class checkInInfo extends JFrame {
             writer.write("Name : " + firstName + " " + lastName + "\n");
             writer.write("Tel : " + tel + "\n");
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            writer.write("Rent date : " + dateFormat.format(date));
+            writer.write("Check in date : " + dateFormat.format(date));
             writer.close();
             System.out.println(fileName + " was saved");
 
             String fileEdit = "room.txt";
-            String targetText = roomNumber + " " + roomType + " " + roomPrice + " " + "0";
+            String targetText = roomNumber + " " + roomType + " " + roomPrice + " " + "0" + " " + "1";
 
             // อ่านไฟล์ทีละบรรทัด
             BufferedReader reader = new BufferedReader(new FileReader(fileEdit));
@@ -133,7 +133,7 @@ public class checkInInfo extends JFrame {
                     String type = value[1];
                     String price = value[2];
                     String status = "1";
-                    String newData = name + " " + type + " " + price + " " + status;
+                    String newData = name + " " + type + " " + price + " " + status + " " + "1";
 
                     if(index != -1) {
                         lines.set(index, newData);
@@ -154,9 +154,9 @@ public class checkInInfo extends JFrame {
             System.out.println("Error while writing file " + e.getMessage());
         }
 
-        try (PrintWriter writer = new PrintWriter(new FileWriter("checkin.txt", true))) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            writer.println(roomNumber + " " + roomType + " " + roomPrice + " " + firstName + " " + lastName + " " + tel + " " + dateFormat.format(date));
+        try (PrintWriter writer = new PrintWriter(new FileWriter("checkin_checkout.txt", true))) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            writer.println(roomNumber + " " + roomType + " " + roomPrice + " " + firstName + " " + lastName + " " + tel + " " + dateFormat.format(date) + " " + "-");
         }
         catch (IOException e) {
             System.out.println("Error while writing file " + e.getMessage());
