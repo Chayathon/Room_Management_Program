@@ -45,7 +45,7 @@ public class RoomSummary extends JFrame {
         JButton closeButton = new JButton("Close");
         closeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose(); // Close the window
+                dispose(); // ปิดหน้าต่าง
             }
         });
 
@@ -57,8 +57,8 @@ public class RoomSummary extends JFrame {
         
 
         setSize(350, 300);
-        setLocationRelativeTo(null); // Center the window
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Close the window when closed
+        setLocationRelativeTo(null); // กึ่งกลางหน้าต่าง
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // ปิดหน้าต่างเมื่อปิด
         setVisible(true);
 
 

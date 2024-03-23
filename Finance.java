@@ -5,10 +5,11 @@ import javax.swing.*;
 public class Finance extends JFrame implements ActionListener {
     JPanel headerPanel, menuPanel; // ประกาศพาเนลสำหรับส่วนหัวและเมนู
     Container container; // ประกาศคอนเทนเนอร์สำหรับเก็บองค์ประกอบ
-    JButton PaymentRentBtn, HistoryBtn, CashingBtn; // ประกาศปุ่มสำหรับการชำระค่าเช่า, ประวัติ, และการนำเข้าเงิน
+    JButton PaymentRentBtn, HistoryBtn, CashingBtn, ExpensesBtn; // ประกาศปุ่มสำหรับการชำระค่าเช่า, ประวัติ, และการนำเข้าเงิน
     PaymentRent PaymentRent; // ประกาศอ็อบเจกต์ PaymentRent
     History History; // ประกาศอ็อบเจกต์ History
     Cashing Cashing; // ประกาศอ็อบเจกต์ Cashing
+    Expenses Expenses; //ประกาศอ็อบเจกต์ Expenses
 
     // สร้างคอนสตรักเตอร์ของคลาส Finance
     public Finance() {
@@ -41,6 +42,11 @@ public class Finance extends JFrame implements ActionListener {
         CashingBtn.addActionListener(this); // กำหนดให้ปุ่มตอบสนองการคลิก
         menuPanel.add(CashingBtn);
 
+        // สร้างปุ่ม "Expenses" และเพิ่มลงในเมนู
+        ExpensesBtn = new JButton("Expenses");
+        ExpensesBtn.addActionListener(this); // กำหนดให้ปุ่มตอบสนองการคลิก
+        menuPanel.add(ExpensesBtn);
+
         // สร้างปุ่ม "History" และเพิ่มลงในเมนู
         HistoryBtn = new JButton("History");
         HistoryBtn.addActionListener(this); // กำหนดให้ปุ่มตอบสนองการคลิก
@@ -62,6 +68,8 @@ public class Finance extends JFrame implements ActionListener {
             gui.setVisible(true); // แสดงหน้าต่าง History
         }  else if(event.getSource() == CashingBtn) {
             Cashing = new Cashing(); // สร้างอ็อบเจกต์ Cashing
+        }   else if(event.getSource() == ExpensesBtn) {
+            Expenses = new Expenses(); // สร้างอ็อบเจกต์ Expenses
         } 
     }
 }
