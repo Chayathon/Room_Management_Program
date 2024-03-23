@@ -52,7 +52,7 @@ public class editRoom extends JFrame {
                 String roomActive = data[4];
                 
                 if(roomActive.equals("1")) {
-                    roomBtn = new JButton(roomNumber + " " + roomType + " " + roomPrice);
+                    roomBtn = new JButton(roomNumber + " " + roomType);
                     roomBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     roomBtn.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent event) {

@@ -7,7 +7,8 @@ public class addRoom extends JFrame {
     Container container;
     JPanel headerPanel, menuPanel, buttoPanel;
     JLabel roomNumberLabel, roomTypeLabel, roomPriceLabel;
-    JTextField roomNumberField, roomTypeField, roomPriceField;
+    JTextField roomNumberField, roomPriceField;
+    JComboBox comboBox;
     JButton confirmBtn;
 
     public addRoom() {
@@ -36,8 +37,9 @@ public class addRoom extends JFrame {
 
         roomTypeLabel = new JLabel("Room Type : ");
         menuPanel.add(roomTypeLabel);
-        roomTypeField = new JTextField(20);
-        menuPanel.add(roomTypeField);
+        String[] type = {"Fan", "AirConditioner"};
+        comboBox = new JComboBox(type);
+        menuPanel.add(comboBox);
 
         roomPriceLabel = new JLabel("Room Price : ");
         menuPanel.add(roomPriceLabel);
@@ -48,7 +50,8 @@ public class addRoom extends JFrame {
         confirmBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         confirmBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                writeToFile(roomNumberField.getText(), roomTypeField.getText(), roomPriceField.getText());
+                String roomTypeField = (String) comboBox.getSelectedItem();
+                writeToFile(roomNumberField.getText(), roomTypeField, roomPriceField.getText());
                 dispose();
             }
         });

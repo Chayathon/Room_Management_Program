@@ -8,9 +8,9 @@ public class editRoomInfo extends JFrame {
     Container container;
     JPanel headerPanel, menuPanel, buttonPanel;
     JLabel roomNumberLabel, roomTypeLabel, roomPriceLabel, roomStatusLabel;
-    JTextField roomNumberField, roomTypeField, roomPriceField, roomStatusField;
-    JTextArea addressField;
-    JButton confirmBtn, cancelBtn;
+    JTextField roomNumberField, roomPriceField, roomStatusField;
+    JComboBox comboBox;
+    JButton confirmBtn;
 
     public editRoomInfo(String roomNumber, String roomType, String roomPrice, String roomStatus) {
         super("Edit Room");
@@ -37,9 +37,10 @@ public class editRoomInfo extends JFrame {
 
         roomTypeLabel = new JLabel("Type : ");
         menuPanel.add(roomTypeLabel);
-        roomTypeField = new JTextField(14);
-        roomTypeField.setText(roomType);
-        menuPanel.add(roomTypeField);
+        String[] type = {"Fan", "AirConditioner"};
+        comboBox = new JComboBox(type);
+        comboBox.setSelectedItem(roomType);
+        menuPanel.add(comboBox);
 
         roomPriceLabel = new JLabel("Price : ");
         menuPanel.add(roomPriceLabel);
@@ -58,7 +59,8 @@ public class editRoomInfo extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 int choice = JOptionPane.showConfirmDialog(null, "Confirm to Edit " + roomNumber + " ?", "Confirmation", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
-                    writeToFile(roomNumber, roomType, roomPrice, roomStatus, roomNumberField.getText(), roomTypeField.getText(), roomPriceField.getText(), roomStatusField.getText());
+                    String roomTypeField = (String) comboBox.getSelectedItem();
+                    writeToFile(roomNumber, roomType, roomPrice, roomStatus, roomNumberField.getText(), roomTypeField, roomPriceField.getText(), roomStatusField.getText());
                     dispose();
                     JOptionPane.showMessageDialog(null, "Room Edited.", "Successfully", 1);
                     return;
