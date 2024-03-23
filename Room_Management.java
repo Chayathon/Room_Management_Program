@@ -3,8 +3,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Room_Management extends JFrame implements ActionListener {
-    JPanel headerPanel, menuPanel;
     Container container;
+    JPanel headerPanel, menuPanel;
     JButton checkInBtn, checkOutBtn, addRoomBtn, editRoomBtn, deleteRoomBtn, ComplaintBtn, ReportBtn, FinanceBtn, checkinHistoryBtn, checkoutHistoryBtn;
     checkIn checkIn;
     checkOut checkOut;
