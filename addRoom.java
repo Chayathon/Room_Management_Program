@@ -31,6 +31,7 @@ public class addRoom extends JFrame {
         roomNumberLabel = new JLabel("Room Number : ");
         menuPanel.add(roomNumberLabel);
         roomNumberField = new JTextField(20);
+        roomNumberField.setText("R");
         menuPanel.add(roomNumberField);
 
         roomTypeLabel = new JLabel("Room Type : ");
@@ -70,7 +71,7 @@ public class addRoom extends JFrame {
                 JOptionPane.showMessageDialog(null, "Room Added.");
 
                 try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
-                    writer.println("R" + roomNumber + " " + roomType + " " + roomPrice + " " + "0");
+                    writer.println(roomNumber + " " + roomType + " " + roomPrice + " " + "0" + " " + "1");
                 }
                 catch (IOException e) {
                     JOptionPane.showMessageDialog(null, "Error saving Room: " + e.getMessage());

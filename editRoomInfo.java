@@ -77,7 +77,7 @@ public class editRoomInfo extends JFrame {
     public void writeToFile(String oldRoomNumber, String oldRoomType, String oldRoomPrice, String oldRoomStatus, String newRoomNumber, String newRoomType, String newRoomPrice, String newRoomStatus) {
         try {
             String fileEdit = "room.txt";
-            String targetText = oldRoomNumber + " " + oldRoomType + " " + oldRoomPrice + " " + oldRoomStatus;
+            String targetText = oldRoomNumber + " " + oldRoomType + " " + oldRoomPrice + " " + oldRoomStatus + " " + "1";
 
             // อ่านไฟล์ทีละบรรทัด
             BufferedReader reader = new BufferedReader(new FileReader(fileEdit));
@@ -105,7 +105,7 @@ public class editRoomInfo extends JFrame {
                     }
                     System.out.println("Line : " + index);
 
-                    String newData = newRoomNumber + " " + newRoomType + " " + newRoomPrice + " " + newRoomStatus;
+                    String newData = newRoomNumber + " " + newRoomType + " " + newRoomPrice + " " + newRoomStatus + " " + "1";
                     if(index != -1) {
                         lines.set(index, newData);
                     }

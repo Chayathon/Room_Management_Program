@@ -130,12 +130,12 @@ public class checkOutInfo extends JFrame {
         }
 
         try (PrintWriter writer = new PrintWriter(new FileWriter("checkout.txt", true))) {
-            File rentFile = new File("checkin.txt");
-            Scanner scanner = new Scanner(rentFile);
+            File fileName = new File("checkin.txt");
+            Scanner scanner = new Scanner(fileName);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if (line.toLowerCase().contains(roomNumber.toLowerCase())) { 
-                    String [] data;
+                    String []data;
                     data = line.split(" ");
 
                     Date date = new Date();
@@ -143,8 +143,6 @@ public class checkOutInfo extends JFrame {
                     writer.println(data[0].trim() + " " + data[1].trim() + " " + data[2].trim() + " " + data[3].trim() + " " + data[4].trim() + " " + data[5].trim() + " " + dateFormat.format(date));
                 }
             }
-            
-            
         }
         catch (IOException e) {
             System.out.println("Error while writing file " + e.getMessage());
@@ -152,12 +150,12 @@ public class checkOutInfo extends JFrame {
     }
 
     public void readFile(String roomNumber) {
-        File rentFile = new File("checkin.txt");
-        try (Scanner scanner = new Scanner(rentFile)) {
+        File fileName = new File("checkin.txt");
+        try (Scanner scanner = new Scanner(fileName)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if (line.toLowerCase().contains(roomNumber.toLowerCase())) { 
-                    String [] data;
+                    String []data;
                     data = line.split(" ");
 
                     if (data.length == 8) {
@@ -182,7 +180,7 @@ public class checkOutInfo extends JFrame {
             }
         }
         catch (FileNotFoundException e) {
-            System.out.println("Error: File not found: " + rentFile.getName());
+            System.out.println("Error: File not found: " + fileName.getName());
         }
     }
 }

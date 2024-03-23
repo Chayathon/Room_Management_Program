@@ -49,17 +49,18 @@ public class checkIn extends JFrame {
                 String roomType = data[1];
                 String roomPrice = data[2];
                 String roomStatus = data[3];
+                String roomActive = data[4];
                 
-                roomBtn = new JButton(roomNumber);
-                // ประมวลผลข้อมูลต่อได้
-                roomBtn = new JButton(roomNumber + " " + roomType + " " + roomPrice);
-                roomBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                roomBtn.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent event) {
-                        checkInInfo checkInInfo = new checkInInfo(roomNumber, roomType, roomPrice);
-                        dispose();
-                    }
-                });
+                if(roomActive.equals("1")) {
+                    roomBtn = new JButton(roomNumber + " " + roomType);
+                    roomBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    roomBtn.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent event) {
+                            checkInInfo checkInInfo = new checkInInfo(roomNumber, roomType, roomPrice);
+                            dispose();
+                        }
+                    });
+                }
     
                 if(roomStatus.equals("0")) {
                     menuPanel.add(roomBtn);

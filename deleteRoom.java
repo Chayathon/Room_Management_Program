@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class deleteRoom extends JFrame {
     JPanel headerPanel, menuPanel;
@@ -25,8 +27,66 @@ public class deleteRoom extends JFrame {
 
         menuPanel = new JPanel();
         menuPanel.setLayout(new GridLayout(3, 2, 10, 10));
+        menuPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
         headerPanel.add(menuPanel);
 
+        readFile();
+        
+        setSize(1700, 400);
+        setVisible(true);
+    }
+
+    public void writeToFile(String roomNumber, String roomType, String roomPrice, String roomStatus, String roomActive) {
+        try {
+            String fileName = "room.txt";
+            String targetText = roomNumber + " " + roomType + " " + roomPrice + " " + roomStatus + " " + roomActive;
+
+            // อ่านไฟล์ทีละบรรทัด
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                // ตรวจสอบว่าบรรทัดตรงกับข้อความที่ต้องการหรือไม่
+                if (line.contains(targetText)) {
+                    System.out.println("Found : " + targetText);
+
+                    Scanner scanner = new Scanner(new File(fileName));
+                    ArrayList<String> lines = new ArrayList<>();
+
+                    while (scanner.hasNextLine()) {
+                        lines.add(scanner.nextLine());
+                    }
+                    scanner.close();
+
+                    int index = -1;
+                    for (int i = 0; i < lines.size(); i++) {
+                        if (lines.get(i).equals(targetText)) {
+                            index = i;
+                            break;
+                        }
+                    }
+                    System.out.println("Line : " + index);
+
+                    if(index != -1) {
+                        lines.set(index, roomNumber + " " + roomType + " " + roomPrice + " " + roomStatus + " " + "0");
+                    }
+
+                    PrintWriter edit = new PrintWriter(new File(fileName));
+                    for (String line1 : lines) {
+                        edit.println(line1);
+                    }
+                    edit.close();
+                    break;
+                }
+            }
+            reader.close();
+        }
+        catch (IOException e) {
+            System.out.println("Error while writing file " + e.getMessage());
+        }
+    }
+
+    public void readFile() {
         try {
             String fileName = "room.txt";
             File file = new File(fileName);
@@ -39,22 +99,26 @@ public class deleteRoom extends JFrame {
                 String roomType = data[1];
                 String roomPrice = data[2];
                 String roomStatus = data[3];
+                String roomActive = data[4];
                 
-                roomBtn = new JButton(roomNumber);
-                // ประมวลผลข้อมูลต่อได้
-                roomBtn = new JButton(roomNumber + " " + roomType + " " + roomPrice + " " + roomStatus);
-                roomBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                roomBtn.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent event) {
-                        int choice = JOptionPane.showConfirmDialog(null, "Are you sure to delete " + roomNumber + " ?", "Confirmation", JOptionPane.YES_NO_OPTION);
-                    if (choice == JOptionPane.YES_OPTION) {
-                        deleteRoom(roomNumber, roomType, roomPrice, roomStatus);
-                        dispose();
-                        JOptionPane.showMessageDialog(null, "Room Deleted.", "Successfully", 1);
-                        return;
-                    }
-                    }
-                });
+                if(roomActive.equals("1")) {
+                    roomBtn = new JButton(roomNumber);
+                    roomBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    roomBtn.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent event) {
+                            int choice = JOptionPane.showConfirmDialog(null, "Room No. :       " + roomNumber + "\n" +
+                                                                                            "Room Type :    " + roomType + "\n" +
+                                                                                            "Room Price :   " + roomPrice + "\n" + 
+                                                                                            "\nAre you sure to Delete?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                            if (choice == JOptionPane.YES_OPTION) {
+                                writeToFile(roomNumber, roomType, roomPrice, roomStatus, roomActive);
+                                dispose();
+                                JOptionPane.showMessageDialog(null, "Room Deleted.", "Successfully", 1);
+                                return;
+                            }
+                        }
+                    });
+                }
                 menuPanel.add(roomBtn);
             }
     
@@ -62,29 +126,6 @@ public class deleteRoom extends JFrame {
         }
         catch(IOException e) {
             System.out.println("Error while writing file " + e.getMessage());
-        }
-        
-        setSize(1700, 400);
-        setVisible(true);
-    }
-
-    public void deleteRoom(String roomNumber, String roomType, String roomPrice, String roomStatus) {
-        String fileName = "room.txt";
-        String targetText = roomNumber + " " + roomType + " " + roomPrice + " " + roomStatus;
-
-        try {
-            // Read the content of the file
-            String content = new String(Files.readAllBytes(Paths.get(fileName)));
-            
-            // Replace the text you want to remove with nothing
-            content = content.replace(targetText, "");
-            
-            // Write the new content back to the file
-            Files.write(Paths.get(fileName), content.getBytes());
-            
-            System.out.println("Room delete successfully!");
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
