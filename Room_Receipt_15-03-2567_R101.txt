@@ -1,6 +1,0 @@
-Room No. : R101
-Type : Fan
-Name : yanisa simma
-Tel : 08114202984
-Address : 36566232
-Rent date : 15-03-2567 20:42:02
