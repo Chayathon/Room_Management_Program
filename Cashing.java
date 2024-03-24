@@ -46,6 +46,7 @@ public class Cashing extends JFrame {
                     roomBtn = new JButton(roomNumber); // สร้าง JButton ด้วยรหัสห้องพัก
                     roomBtn.setPreferredSize(new Dimension(120, 60)); // กำหนดขนาดปุ่ม
                     roomBtn.setFont(new Font("Tahoma", Font.PLAIN, 18)); // กำหนดรูปแบบและขนาดตัวอักษร
+                    roomBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); // กำหนด cursor เป็นมือ
 
                     roomBtn.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent event) { // เมื่อคลิกปุ่มห้องพัก
@@ -110,6 +111,7 @@ public class Cashing extends JFrame {
         constraints.gridwidth = 2;
         constraints.fill = GridBagConstraints.NONE;
         JButton confirmButton = new JButton("Confirm Payment"); // สร้าง JButton สำหรับยืนยันการชำระเงิน
+        confirmButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); // กำหนด cursor เป็นมือ
         panel.add(confirmButton, constraints); // เพิ่ม JButton ลงใน panel
 
         confirmButton.addActionListener(new ActionListener() {

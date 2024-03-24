@@ -5,7 +5,6 @@ import java.awt.*;
 import java.io.*;
 
 public class checkincheckoutHistory extends JFrame {
-
     private JTable table;
     private JScrollPane scrollPane;
 

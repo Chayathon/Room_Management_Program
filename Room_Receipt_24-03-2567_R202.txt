@@ -1,0 +1,5 @@
+Room No. : R202
+Type : AirConditioner
+Name : Yanisa Simma
+Tel : 0987654321
+Check in date : 24-03-2567 14:31:21

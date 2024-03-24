@@ -8,8 +8,8 @@ R107 Fan 1800 Avaliable 1
 R108 Fan 1800 Avaliable 1
 R109 Fan 1800 Avaliable 1
 R110 Fan 1800 Avaliable 1
-R201 AirConditioner 2500 Avaliable 1
-R202 AirConditioner 2500 Avaliable 1
+R201 AirConditioner 2500 Taken 1
+R202 AirConditioner 2500 Taken 1
 R203 AirConditioner 2500 Avaliable 1
 R204 AirConditioner 2500 Avaliable 1
 R205 AirConditioner 2500 Avaliable 1
@@ -18,7 +18,7 @@ R207 AirConditioner 2500 Avaliable 1
 R208 AirConditioner 2500 Avaliable 1
 R209 AirConditioner 2500 Avaliable 1
 R210 AirConditioner 2500 Avaliable 1
-R301 AirConditioner 2500 Taken 1
+R301 AirConditioner 2500 Avaliable 1
 R302 AirConditioner 2500 Avaliable 1
 R303 AirConditioner 2500 Avaliable 1
 R304 AirConditioner 2500 Avaliable 1
@@ -27,5 +27,5 @@ R306 AirConditioner 2500 Avaliable 1
 R307 AirConditioner 2500 Avaliable 1
 R308 AirConditioner 2500 Avaliable 1
 R309 AirConditioner 2500 Avaliable 1
-R310 AirConditioner 2500 Taken 1
-R401 Fan 1800 Taken 0
+R310 AirConditioner 2500 Avaliable 1
+R401 Fan 2000 Avaliable 0
