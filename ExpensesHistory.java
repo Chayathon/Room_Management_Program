@@ -27,9 +27,7 @@ public class ExpensesHistory extends JFrame {
 
         // เพิ่มปุ่ม Delete และ Save
         JButton deleteButton = new JButton("Delete");
-        deleteButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         JButton saveButton = new JButton("Save");
-        saveButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // เพิ่ม Action Listener ให้กับปุ่ม Delete และ Save
         deleteButton.addActionListener(e -> deleteSelectedRows());

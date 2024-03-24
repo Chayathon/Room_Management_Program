@@ -1,7 +1,9 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -37,7 +39,6 @@ public class ExpensesForm extends JFrame {
 
         JButton submitButton = new JButton("Submit"); // สร้าง JButton สำหรับกดเพื่อส่งข้อมูล
         submitButton.setBounds(150, 200, 100, 25); // กำหนดตำแหน่งและขนาดของ JButton
-        submitButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 submitExpense(); // เรียกเมธอดเพื่อส่งข้อมูลค่าใช้จ่าย

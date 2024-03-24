@@ -33,15 +33,11 @@ public class Complaint extends JFrame implements ActionListener {
 
         // สร้างปุ่ม "Add Complaint" และเพิ่ม ActionListener
         ComplaintFormBtn = new JButton("Add Complaint");
-        ComplaintFormBtn.setFont(new Font("Tahoma", Font.BOLD, 20));
-        ComplaintFormBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         ComplaintFormBtn.addActionListener(this);
         menuPanel.add(ComplaintFormBtn);
 
         // สร้างปุ่ม "History" และเพิ่ม ActionListener
         ComplaintHistoryBtn = new JButton("History");
-        ComplaintHistoryBtn.setFont(new Font("Tahoma", Font.BOLD, 20));
-        ComplaintHistoryBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         ComplaintHistoryBtn.addActionListener(this);
         menuPanel.add(ComplaintHistoryBtn);
 

@@ -34,29 +34,21 @@ public class Finance extends JFrame implements ActionListener {
 
         // สร้างปุ่ม "Payment Rent" และเพิ่มลงในเมนู
         PaymentRentBtn = new JButton("Payment Rent");
-        PaymentRentBtn.setFont(new Font("Tahoma", Font.BOLD, 20));
-        PaymentRentBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         PaymentRentBtn.addActionListener(this); // กำหนดให้ปุ่มตอบสนองการคลิก
         menuPanel.add(PaymentRentBtn);
 
         // สร้างปุ่ม "Cashing" และเพิ่มลงในเมนู
         CashingBtn = new JButton("Cashing");
-        CashingBtn.setFont(new Font("Tahoma", Font.BOLD, 20));
-        CashingBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         CashingBtn.addActionListener(this); // กำหนดให้ปุ่มตอบสนองการคลิก
         menuPanel.add(CashingBtn);
 
         // สร้างปุ่ม "Expenses" และเพิ่มลงในเมนู
         ExpensesBtn = new JButton("Expenses");
-        ExpensesBtn.setFont(new Font("Tahoma", Font.BOLD, 20));
-        ExpensesBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         ExpensesBtn.addActionListener(this); // กำหนดให้ปุ่มตอบสนองการคลิก
         menuPanel.add(ExpensesBtn);
 
         // สร้างปุ่ม "History" และเพิ่มลงในเมนู
         HistoryBtn = new JButton("History");
-        HistoryBtn.setFont(new Font("Tahoma", Font.BOLD, 20));
-        HistoryBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         HistoryBtn.addActionListener(this); // กำหนดให้ปุ่มตอบสนองการคลิก
         menuPanel.add(HistoryBtn);
 

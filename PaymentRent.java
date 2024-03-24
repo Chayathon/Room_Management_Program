@@ -46,45 +46,48 @@ public class PaymentRent extends JFrame {
                 String roomType = data[1];
                 String roomPrice = data[2];
                 String roomStatus = data[3];
-                String roomActive = data[4];
-                
-                if(roomActive.equals("1")) {
-                    // ตรวจสอบว่ามีประวัติการชำระเงินที่ตำแหน่ง 2 และสำหรับเดือนปัจจุบันหรือไม่
-                    boolean canEnableButton = checkPaymentHistory(roomNumber);
 
-                    roomBtn = new JButton(roomNumber);
-                    roomBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                    roomBtn.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent event) {
-                            String electricityCost = JOptionPane.showInputDialog("Enter electricity unit:");
-                            double roomPriceDouble = Double.parseDouble(roomPrice);
-                            double totalCost = roomPriceDouble + (Double.parseDouble(electricityCost) * 8) + 100;
+                // ตรวจสอบว่ามีประวัติการชำระเงินที่ตำแหน่ง 2 และสำหรับเดือนปัจจุบันหรือไม่
+                boolean canEnableButton = checkPaymentHistory(roomNumber);
 
-                            // รับวันที่ปัจจุบัน
-                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                            String currentDate = dateFormat.format(new Date());
+                roomBtn = new JButton(roomNumber);
+                roomBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                roomBtn.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String electricityCost = JOptionPane.showInputDialog("Enter electricity unit:");
+                        double roomPriceDouble = Double.parseDouble(roomPrice);
+                        double totalCost = roomPriceDouble + (Double.parseDouble(electricityCost) * 8) + 100;
 
-                            try (BufferedWriter writer = new BufferedWriter(new FileWriter("payment_history.txt", true))) {
-                                // ปรับเปลี่ยนการเขียนข้อมูลในไฟล์ payment_history.txt
-                                writer.write(roomNumber + " "+ "0 " + electricityCost + " " + totalCost + " " + currentDate);
-                                writer.newLine();
-                                // JOptionPane.showMessageDialog(container, "Payment details saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                JOptionPane.showMessageDialog(container, "Error saving payment details. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-                            }
-                            // แสดงหน้าต่างสรุปห้อง
-                            currentRoomSummary = new RoomSummary(roomNumber, roomType, roomPrice, electricityCost, totalCost);
+                        // รับวันที่ปัจจุบัน
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        String currentDate = dateFormat.format(new Date());
 
-                            dispose(); // ปิดหน้าต่างปัจจุบัน
-                            SwingUtilities.invokeLater(new Runnable() {
-                                public void run() {
-                                    new PaymentRent(); // เปิดหน้าต่าง PaymentRent ใหม่
-                                }
-                            });
+                        try (BufferedWriter writer = new BufferedWriter(new FileWriter("payment_history.txt", true))) {
+                            // ปรับเปลี่ยนการเขียนข้อมูลในไฟล์ payment_history.txt
+                            writer.write(roomNumber + " "+ "0 " + electricityCost + " " + totalCost + " " + currentDate);
+                            writer.newLine();
+                            // JOptionPane.showMessageDialog(container, "Payment details saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            JOptionPane.showMessageDialog(container, "Error saving payment details. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
                         }
-                    });
-                }
+                        // แสดงหน้าต่างสรุปห้อง
+                        currentRoomSummary = new RoomSummary(roomNumber, roomType, roomPrice, electricityCost, totalCost);
+
+                        dispose(); // ปิดหน้าต่างปัจจุบัน
+                        SwingUtilities.invokeLater(new Runnable() {
+                            public void run() {
+                                new PaymentRent(); // เปิดหน้าต่าง PaymentRent ใหม่
+                            }
+                        });
+                    }
+                });
+
+                roomBtn.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        cardLayout.show(container, roomNumber);
+                    }
+                });
 
                 if(roomStatus.equals("Taken") && !checkPaymentHistory(roomNumber)) {
                     menuPanel.add(roomBtn);

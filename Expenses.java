@@ -31,14 +31,10 @@ public class Expenses extends JFrame implements ActionListener {
         headerPanel.add(menuPanel);
 
         expensesFormBtn = new JButton("Add Expenses");
-        expensesFormBtn.setFont(new Font("Tahoma", Font.BOLD, 20));
-        expensesFormBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         expensesFormBtn.addActionListener(this);
         menuPanel.add(expensesFormBtn);
 
         expensesHistoryBtn = new JButton("History");
-        expensesHistoryBtn.setFont(new Font("Tahoma", Font.BOLD, 20));
-        expensesHistoryBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         expensesHistoryBtn.addActionListener(this);
         menuPanel.add(expensesHistoryBtn);
 
