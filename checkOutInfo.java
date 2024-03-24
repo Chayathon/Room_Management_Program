@@ -90,6 +90,7 @@ public class checkOutInfo extends JFrame {
                 String number = data[0];
                 String type = data[1];
                 String price = data[2];
+                String status = "Avaliable";
 
                 if (line.contains(targetText)) {
                     Scanner scanner = new Scanner(new File(fileEdit));
@@ -108,7 +109,7 @@ public class checkOutInfo extends JFrame {
                     }
 
                     String[] value = targetText.split(" ");
-                    String newData = number + " " + type + " " + price + " " + "0" + " " + "1";
+                    String newData = number + " " + type + " " + price + " " + status + " " + "1";
 
                     if(index != -1) {
                         lines.set(index, newData);
@@ -195,34 +196,37 @@ public class checkOutInfo extends JFrame {
                 if (line.toLowerCase().contains(roomNumber.toLowerCase())) { 
                     String []data;
                     data = line.split(" ");
-
-                    if (data.length == 8) {
-                        firstNameLabel = new JLabel("Firstname : ");
-                        menuPanel.add(firstNameLabel);
-                        firstNameField = new JTextField(20);
-                        firstNameField.setText(data[3].trim());
-                        firstNameField.setEditable(false);
-                        menuPanel.add(firstNameField);
-
-                        lastNameLabel = new JLabel("Lastname : ");
-                        menuPanel.add(lastNameLabel);
-                        lastNameField = new JTextField(20);
-                        lastNameField.setText(data[4].trim());
-                        lastNameField.setEditable(false);
-                        menuPanel.add(lastNameField);
-
-                        telLabel = new JLabel("Tel : ");
-                        menuPanel.add(telLabel);
-                        telField = new JTextField(20);
-                        telField.setText(data[5].trim());
-                        telField.setEditable(false);
-                        menuPanel.add(telField);
-
-                        checkinDate = new JTextField();
-                        checkinDate.setText(data[6].trim());
-                    }
-                    else {
-                        System.out.println("Warning: Invalid data format in line: " + line);
+                    String oldData = data[0] + " " + data[1] + " " + data[2] + " " + data[3] + " " + data[4] + " " + data[5] + " " + data[6];
+                    
+                    if(line.toLowerCase().contains(oldData.toLowerCase() + " " + "-" )) {
+                        if (data.length == 8) {
+                            firstNameLabel = new JLabel("Firstname : ");
+                            menuPanel.add(firstNameLabel);
+                            firstNameField = new JTextField(20);
+                            firstNameField.setText(data[3].trim());
+                            firstNameField.setEditable(false);
+                            menuPanel.add(firstNameField);
+    
+                            lastNameLabel = new JLabel("Lastname : ");
+                            menuPanel.add(lastNameLabel);
+                            lastNameField = new JTextField(20);
+                            lastNameField.setText(data[4].trim());
+                            lastNameField.setEditable(false);
+                            menuPanel.add(lastNameField);
+    
+                            telLabel = new JLabel("Tel : ");
+                            menuPanel.add(telLabel);
+                            telField = new JTextField(20);
+                            telField.setText(data[5].trim());
+                            telField.setEditable(false);
+                            menuPanel.add(telField);
+    
+                            checkinDate = new JTextField();
+                            checkinDate.setText(data[6].trim());
+                        }
+                        else {
+                            System.out.println("Warning: Invalid data format in line: " + line);
+                        }
                     }
                 }
             }

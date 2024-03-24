@@ -103,7 +103,7 @@ public class checkInInfo extends JFrame {
             System.out.println(fileName + " was saved");
 
             String fileEdit = "room.txt";
-            String targetText = roomNumber + " " + roomType + " " + roomPrice + " " + "0" + " " + "1";
+            String targetText = roomNumber + " " + roomType + " " + roomPrice + " " + "Avaliable" + " " + "1";
 
             // อ่านไฟล์ทีละบรรทัด
             BufferedReader reader = new BufferedReader(new FileReader(fileEdit));
@@ -132,7 +132,7 @@ public class checkInInfo extends JFrame {
                     String name = value[0];
                     String type = value[1];
                     String price = value[2];
-                    String status = "1";
+                    String status = "Taken";
                     String newData = name + " " + type + " " + price + " " + status + " " + "1";
 
                     if(index != -1) {

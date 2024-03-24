@@ -10,7 +10,7 @@ public class checkincheckoutHistory extends JFrame {
     private JScrollPane scrollPane;
 
     public checkincheckoutHistory() {
-        setTitle("Checkin Checkout History");
+        setTitle("Rental History");
         setSize(800, 400); // เปลี่ยนขนาดหน้าต่างให้กว้างขึ้นเพื่อรองรับข้อมูลเพิ่มเติม
         setLocationRelativeTo(null);
         setVisible(true);

@@ -89,7 +89,7 @@ public class PaymentRent extends JFrame {
                     }
                 });
 
-                if(roomStatus.equals("1") && !checkPaymentHistory(roomNumber)) {
+                if(roomStatus.equals("Taken") && !checkPaymentHistory(roomNumber)) {
                     menuPanel.add(roomBtn);
                 } else {
                     roomBtn.setEnabled(false);

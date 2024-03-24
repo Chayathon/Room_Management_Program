@@ -65,6 +65,7 @@ public class addRoom extends JFrame {
     }
 
     public void writeToFile(String roomNumber, String roomType, String roomPrice) {
+        String roomStatus = "Avaliable";
         File fileName = new File("room.txt");
 
         if (fileName.exists()) {
@@ -74,7 +75,7 @@ public class addRoom extends JFrame {
                 JOptionPane.showMessageDialog(null, "Room Added.");
 
                 try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
-                    writer.println(roomNumber + " " + roomType + " " + roomPrice + " " + "0" + " " + "1");
+                    writer.println(roomNumber + " " + roomType + " " + roomPrice + " " + roomStatus + " " + "1");
                 }
                 catch (IOException e) {
                     JOptionPane.showMessageDialog(null, "Error saving Room: " + e.getMessage());
@@ -82,23 +83,5 @@ public class addRoom extends JFrame {
                 return;
             }
         }
-
-        // try {
-        //     writeToFile(roomNumber, roomType, roomPrice, fileName);
-        //     JOptionPane.showMessageDialog(null, "Room saved successfully!");
-        // }
-        // catch (IOException e) {
-        //     JOptionPane.showMessageDialog(null, "Error saving Room: " + e.getMessage());
-        // }
     }
-
-    // private static void writeToFile(String roomNumber, String roomType, String roomPrice, File equipmentFile) {
-    //     try (PrintWriter writer = new PrintWriter(new FileWriter(equipmentFile, true))) {
-    //         writer.println("R" + roomNumber + " " + roomType + " " + roomPrice + " " + "0");
-    //     }
-    //     catch (IOException e) {
-    //         JOptionPane.showMessageDialog(null, "Error saving Room: " + e.getMessage());
-    //     }
-    // }
-
 }

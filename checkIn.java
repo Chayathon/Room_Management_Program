@@ -62,7 +62,7 @@ public class checkIn extends JFrame {
                     });
                 }
     
-                if(roomStatus.equals("0")) {
+                if(roomStatus.equals("Avaliable")) {
                     menuPanel.add(roomBtn);
                 }
                 else {

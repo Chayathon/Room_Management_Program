@@ -8,8 +8,8 @@ public class editRoomInfo extends JFrame {
     Container container;
     JPanel headerPanel, menuPanel, buttonPanel;
     JLabel roomNumberLabel, roomTypeLabel, roomPriceLabel, roomStatusLabel;
-    JTextField roomNumberField, roomPriceField, roomStatusField;
-    JComboBox comboBox;
+    JTextField roomNumberField, roomPriceField;
+    JComboBox comboBoxType, comboBoxStatus;
     JButton confirmBtn;
 
     public editRoomInfo(String roomNumber, String roomType, String roomPrice, String roomStatus) {
@@ -38,9 +38,9 @@ public class editRoomInfo extends JFrame {
         roomTypeLabel = new JLabel("Type : ");
         menuPanel.add(roomTypeLabel);
         String[] type = {"Fan", "AirConditioner"};
-        comboBox = new JComboBox(type);
-        comboBox.setSelectedItem(roomType);
-        menuPanel.add(comboBox);
+        comboBoxType = new JComboBox(type);
+        comboBoxType.setSelectedItem(roomType);
+        menuPanel.add(comboBoxType);
 
         roomPriceLabel = new JLabel("Price : ");
         menuPanel.add(roomPriceLabel);
@@ -50,17 +50,19 @@ public class editRoomInfo extends JFrame {
 
         roomStatusLabel = new JLabel("Status : ");
         menuPanel.add(roomStatusLabel);
-        roomStatusField = new JTextField(14);
-        roomStatusField.setText(roomStatus);
-        menuPanel.add(roomStatusField);
+        String[] status = {"Avaliable", "Taken"};
+        comboBoxStatus = new JComboBox(status);
+        comboBoxStatus.setSelectedItem(roomStatus);
+        menuPanel.add(comboBoxStatus);
 
         confirmBtn = new JButton("Confirm");
         confirmBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 int choice = JOptionPane.showConfirmDialog(null, "Confirm to Edit " + roomNumber + " ?", "Confirmation", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
-                    String roomTypeField = (String) comboBox.getSelectedItem();
-                    writeToFile(roomNumber, roomType, roomPrice, roomStatus, roomNumberField.getText(), roomTypeField, roomPriceField.getText(), roomStatusField.getText());
+                    String roomTypeField = (String) comboBoxType.getSelectedItem();
+                    String roomStatusField = (String) comboBoxStatus.getSelectedItem();
+                    writeToFile(roomNumber, roomType, roomPrice, roomStatus, roomNumberField.getText(), roomTypeField, roomPriceField.getText(), roomStatusField);
                     dispose();
                     JOptionPane.showMessageDialog(null, "Room Edited.", "Successfully", 1);
                     return;

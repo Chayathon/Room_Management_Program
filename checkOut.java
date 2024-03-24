@@ -62,7 +62,7 @@ public class checkOut extends JFrame {
                     });
                 }
     
-                if(roomStatus.equals("1")) {
+                if(roomStatus.equals("Taken")) {
                     menuPanel.add(roomBtn);
                 }
                 else {
