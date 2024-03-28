@@ -22,7 +22,13 @@ public class History extends JFrame {
 
     // กำหนดคอมโพเนนต์ต่าง ๆ ในหน้าต่าง
     private void initializeComponents() {
-        table = new JTable();
+        table = new JTable() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // ทำให้เซลล์ในตารางไม่สามารถแก้ไขได้
+            }
+        };
+        table.setFocusable(false); // ปิดการใช้งานคีย์บอร์ดเพื่อแก้ไข
         scrollPane = new JScrollPane(table);
         add(scrollPane);
     }
@@ -35,7 +41,8 @@ public class History extends JFrame {
         model.addColumn("Room Cost");
         model.addColumn("Electricity Unit");
         model.addColumn("Electricity Cost");
-        model.addColumn("Water");
+        model.addColumn("Water Unit");
+        model.addColumn("Water Cost");
         model.addColumn("Total Cost");
         model.addColumn("Payment Date");
 
@@ -45,17 +52,26 @@ public class History extends JFrame {
                 String[] data = line.split(" ");
                 String roomNumber = data[0];
                 String paymentStatus = data[1].equals("0") ? "Not Paid" : "Paid";
-                String electricityCost = data[2];
-                String totalCost = data[3];
-                String paymentDate = data[4];
-                Double Cost = Double.parseDouble(electricityCost) * 8;
+                String electricityUnit = data[3];
+                String waterUnit = data[4];
+                String totalCost = data[5];
+                String paymentDate = data[6];
+                Double Cost = Double.parseDouble(electricityUnit) * 8;
+                Double waterCost;
+                if (Double.parseDouble(waterUnit) <= 50) {
+                    waterCost = Double.parseDouble(waterUnit) * 6;
+                } else if (Double.parseDouble(waterUnit) <= 100) {
+                    waterCost = Double.parseDouble(waterUnit) * 7;
+                } else {
+                    waterCost = Double.parseDouble(waterUnit) * 10;
+                }
 
                 // อ่านข้อมูลหมายเลขห้องจากไฟล์ room.txt
                 String roomInfo = readRoomInfo(roomNumber);
                 String[] roomData = roomInfo.split(" ");
                 String roomCost = roomData[2]; // ข้อมูลค่าน้ำ
 
-                model.addRow(new String[]{roomNumber, paymentStatus, roomCost, electricityCost, String.valueOf(Cost), "100", totalCost, paymentDate});
+                model.addRow(new String[]{roomNumber, paymentStatus, roomCost, electricityUnit, String.valueOf(Cost), waterUnit,String.valueOf(waterCost), totalCost, paymentDate});
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error reading file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
